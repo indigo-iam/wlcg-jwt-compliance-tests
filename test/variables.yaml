@@ -1,0 +1,29 @@
+oauth:
+  token:
+    issuer: https://wlcg.cloud.cnaf.infn.it/
+
+oidc-agent:
+  provider-alias: wlcg
+
+endpoints:
+  cnaf-amnesiac:
+    desc: CNAF StoRM development instance
+    type: SToRM
+    endpoint: https://amnesiac.cloud.cnaf.infn.it:8443
+    paths:
+      wlcg: /wlcg
+      tf: /tf
+
+  infn-t1-xfer:
+    desc: INFN T1 atlas production SE
+    type: StoRM
+    endpoint: https://xfer.cr.cnaf.infn.it:8443
+    paths:
+      wlcg: /wlcg
+
+  prometheus:
+    desc: DESY prometheus
+    type: dCache
+    endpoint: https://prometheus.desy.de:2443
+    paths:
+      wlcg: /VOs/wlcg
