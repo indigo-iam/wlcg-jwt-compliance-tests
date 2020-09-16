@@ -1,58 +1,58 @@
 *** Settings ***
 
 Variables   test/variables.yaml
+Resource    common/endpoint.robot
 Resource    common/curl.robot
 Resource    common/oidc-agent.robot
 
 *** Keywords ***
 
+Generate UUID
+    ${uuid}   Evaluate   uuid.uuid4()   uuid
+    [Return]   ${uuid}
+
 Default Setup
     Get token
 
 Create remote file
-    [Arguments]  ${uuid}  ${seAlias}   ${sa}=wlcg
-    ${file}   Set Variable   robot-file-${uuid}
-    ${dest}   Get From Dictionary   ${endpoints}   ${seAlias}
-    ${saPath}   Get From Dictionary   ${dest.paths}   ${sa}
-    ${url}   Set Variable   ${dest.endpoint}${saPath}/robot-${uuid}/${file}
-    ${localFile}   Create Temporary File   ${file}
-    ${rc}   ${out}   Curl PUT Success   ${localFile}  ${url}
+    [Arguments]  ${file}  ${se_alias}   ${sa}=wlcg
+    ${endpoint}   GET SE endpoint   ${se_alias}   ${sa}
+    ${url}   Set Variable   ${endpoint}/${file}
+    ${local_file}   Create Temporary File   ${file}
+    ${rc}   ${out}   Curl PUT Success   ${local_file}  ${url}
     [Return]   ${url}
     
 Create remote dir   
-    [Arguments]  ${uuid}  ${seAlias}   ${sa}=wlcg
-    ${dir}   Set Variable   robot-${uuid}
-    ${dest}   Get From Dictionary   ${endpoints}   ${seAlias}
-    ${saPath}   Get From Dictionary   ${dest.paths}   ${sa}
-    ${url}   Set Variable   ${dest.endpoint}${saPath}/${dir}
+    [Arguments]  ${dir}  ${se_alias}   ${sa}=wlcg
+    ${endpoint}   GET SE endpoint   ${se_alias}   ${sa}
+    ${url}   Set Variable   ${endpoint}/${dir}
     ${rc}   ${out}   Curl MKCOL Success   ${url}
     [Return]   ${url}
 
 HTTP URL
-    [Arguments]  ${uuid}  ${seAlias}   ${sa}=wlcg
-    ${dest}   Get From Dictionary   ${endpoints}   ${seAlias}
-    ${saPath}   Get From Dictionary   ${dest.paths}   ${sa}
-    ${url}   Set Variable   ${dest.endpoint}${saPath}/robot-${uuid}/robot-file-${uuid}
+    [Arguments]  ${path}  ${se_alias}   ${sa}=wlcg
+    ${endpoint}   GET SE endpoint   ${se_alias}   ${sa}
+    ${url}   Set Variable   ${endpoint}/${path}
     [Return]   ${url}
 
-Tpc pull copy   
+Tpc pull copy
     [Arguments]   ${se1}   ${se2}   ${sa}=wlcg
-    ${rc}   ${uuid}   Execute and Check Success   uuidgen
-    Create remote dir  ${uuid}  ${se1}
-    Create remote dir  ${uuid}  ${se2}
-    ${destUrl}   HTTP URL   ${uuid}  ${se1}
-    ${url}   Create remote file   ${uuid}   ${se2}
+    Set tags   ${se1}   ${se2}   ${sa}
+    ${uuid}   Generate UUID
+    ${test_dir}   Create Dictionary
+    ${test_dir.se1}   Create remote dir  tpc-pull-${uuid}  ${se1}
+    ${test_dir.se2}   Create remote dir  tpc-pull-${uuid}  ${se2}
+    ${tdir}   Set Test Variable   ${test_dir}
+    ${path}   Set Variable   tpc-pull-${uuid}/f-${uuid}
+    ${destUrl}   HTTP URL   ${path}  ${se1}
+    ${url}   Create remote file   ${path}   ${se2}
     Curl pull COPY Success   ${destUrl}   ${url}
-
-Tpc pull Teardown
-    [Arguments]   ${se1}   ${se2}   ${sa}=wlcg
-    Log   ${se1}
-    Log   ${se2}
 
 *** Test cases ***
 
 Tpc pull works
     [Template]   Tpc pull copy
     [Setup]   Default Setup
-    se1=cnaf-amnesiac   se2=infn-t1-xfer
-    se1=cnaf-amnesiac   se2=prometheus
+    # se1=cnaf-amnesiac   se2=infn-t1-xfer
+    # se1=cnaf-amnesiac   se2=prometheus
+
