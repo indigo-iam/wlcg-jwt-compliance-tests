@@ -3,6 +3,8 @@
 Library    OperatingSystem
 Library    String
 Library    Collections
+Library    HttpSupportLibrary
+Library    VOMSHelperLibrary
 
 *** Keywords ***
 
@@ -49,8 +51,20 @@ Create Random Temporary File
     Create File   ${path}  ${content}
     [Return]   ${path}
 
-SE URL
-    [Arguments]  ${path}  ${se_alias}   ${sa}=wlcg
+Suite Base URL
+    [Arguments]   ${se}=${se_alias}   ${sa}=wlcg
     ${endpoint}   GET SE endpoint   ${se_alias}   ${sa}
-    ${url}   Set Variable   ${endpoint}/${path}
+    ${url}   Set Variable   ${endpoint}/wlcg-jwt-compliance/${SUITE_UUID}
     [Return]   ${url}
+
+SE URL
+    [Arguments]  ${path}  ${se}=${se_alias}   ${sa}=wlcg
+    ${suite_url}   Suite Base URl   ${se_alias}   ${sa}
+    ${url}   Set Variable   ${suite_url}/${path}
+    [Return]   ${url}
+
+Create Suite Directory
+    [Arguments]   ${sa}=wlcg
+    ${endpoint}   GET SE endpoint   ${se_alias}   ${sa}
+    Se Create Dir If Missing   ${endpoint}/wlcg-jwt-compliance
+    Se Create Dir If Missing   ${endpoint}/wlcg-jwt-compliance/${SUITE_UUID}

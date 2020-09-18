@@ -6,24 +6,47 @@ oidc-agent:
   provider-alias: wlcg
 
 endpoints:
+  storm-example:
+    desc: Local StoRM development instance
+    type: StoRM
+    endpoint: https://storm.example:8443
+    paths:
+      wlcg: /wlcg
+      tf: /tf
   cnaf-amnesiac:
     desc: CNAF StoRM development instance
-    type: SToRM
+    type: StoRM
     endpoint: https://amnesiac.cloud.cnaf.infn.it:8443
     paths:
       wlcg: /wlcg
       tf: /tf
-
   infn-t1-xfer:
     desc: INFN T1 atlas production SE
     type: StoRM
     endpoint: https://xfer.cr.cnaf.infn.it:8443
     paths:
       wlcg: /wlcg
-
   prometheus:
     desc: DESY prometheus
     type: dCache
     endpoint: https://prometheus.desy.de:2443
     paths:
       wlcg: /VOs/wlcg
+  cern-eos:
+    desc: CERN EOS
+    type: EOS
+    endpoint: https://eospps.cern.ch
+    paths:
+      wlcg: /eos/opstest/tpc/https
+  nebraska-xrootd:
+    desc: Nebraska XRootD
+    type: XRootD
+    endpoint: https://red-gridftp12.unl.edu:1094
+    paths:
+      wlcg: /user/dteam
+  prague-dpm:
+    desc: Prague DPM
+    type: DPM
+    endpoint: https://golias100.farm.particle.cz
+    paths:
+      wlcg: /dpm/farm.particle.cz/home/wlcg

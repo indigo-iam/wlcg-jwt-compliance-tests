@@ -50,9 +50,9 @@ Tpc pull copy
 
 *** Test cases ***
 
-Tpc pull works
-    [Template]   Tpc pull copy
-    [Setup]   Default Setup
+#Tpc pull works
+#    [Template]   Tpc pull copy
+#    [Setup]   Default Setup
     # se1=cnaf-amnesiac   se2=infn-t1-xfer
     # se1=cnaf-amnesiac   se2=prometheus
 

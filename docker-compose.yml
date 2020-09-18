@@ -1,0 +1,23 @@
+version: '3.5'
+
+services:
+
+  ts:
+    image: andreaceccanti/wlcg-jwt-compliance-tests
+
+    environment:
+      - TZ=Europe/Rome
+
+    volumes:
+      - $HOME/grid-security:/etc/grid-security/certificates
+      - $HOME/ca-bundle:/etc/pki
+      - $HOME/vomsdir:/etc/grid-security/vomsdir:ro
+      - $HOME/vomses:/etc/vomses
+      - $HOME/.globus:/home/test/.globus:ro
+      - $HOME/.config/oidc-agent:/home/test/.config/oidc-agent:ro
+      - .:/home/test/code
+
+    entrypoint: /tini -- sleep infinity
+
+    extra_hosts:
+      - "storm.example: 192.168.65.2"

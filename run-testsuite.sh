@@ -14,13 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-set -ex
+set -e
+
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 <seAlias>"
+  exit 1
+fi
 
 DAV_HOST=${DAV_HOST:-localhost}
 
 REMOTE_DAV_HOST=${REMOTE_DAV_HOST:-${DAV_HOST:-localhost}}
 
-REPORTS_DIR=${REPORTS_DIR:-reports}
+REPORTS_DIR=${REPORTS_DIR:-reports/$1}
 
 ROBOT_ARGS=${ROBOT_ARGS:-}
 
@@ -32,4 +37,4 @@ if [ -n "${ROBOT_ARGS}" ]; then
   ARGS="${ARGS} ${ROBOT_ARGS}"
 fi
 
-robot ${ARGS} test 
+robot ${ARGS} --variable se_alias:$1 test 

@@ -5,7 +5,7 @@ Load endpoints
     [Return]   @{aliases}
 
 Get SE config
-    [Arguments]   ${se_alias}
+    [Arguments]   ${se_alias}=${se_alias}
     ${se_cfg}   Get From Dictionary   ${endpoints}   ${se_alias}
     [Return]   ${se_cfg}
 
