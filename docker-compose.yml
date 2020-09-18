@@ -1,21 +1,32 @@
 version: '3.5'
 
+volumes:
+  trustanchors:
+  cabundle:
+
 services:
+
+  trust:
+    image: indigoiam/egi-trustanchors
+    environment:
+      - FORCE_TRUST_ANCHORS_UPDATE=1
+    volumes:
+      - trustanchors:/etc/grid-security/certificates
+      - cabundle:/etc/pki
 
   ts:
     image: andreaceccanti/wlcg-jwt-compliance-tests
 
     environment:
       - TZ=Europe/Rome
+      - REQUESTS_CA_BUNDLE=/etc/pki/tls/cert.pem
+      - OIDC_AGENT_SECRET
 
     volumes:
-      - $HOME/grid-security:/etc/grid-security/certificates
-      - $HOME/ca-bundle:/etc/pki
-      - $HOME/vomsdir:/etc/grid-security/vomsdir:ro
-      - $HOME/vomses:/etc/vomses
-      - $HOME/.globus:/home/test/.globus:ro
-      - $HOME/.config/oidc-agent:/home/test/.config/oidc-agent:ro
-      - .:/home/test/code
+      - cabundle:/etc/pki
+      - trustanchors:/etc/grid-security/certificates
+      - ./assets/.config/oidc-agent:/home/test/.config/oidc-agent:ro
+      - .:/home/test/test-suite
 
     entrypoint: /tini -- sleep infinity
 
