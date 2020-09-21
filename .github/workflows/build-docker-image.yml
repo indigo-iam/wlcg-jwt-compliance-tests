@@ -22,4 +22,5 @@ jobs:
           push: false
           tags: andreaceccanti/wlcg-jwt-compliance-tests:latest
           context: ./docker
+          file: ./docker/Dockerfile
         
