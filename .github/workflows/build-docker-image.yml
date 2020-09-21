@@ -1,0 +1,25 @@
+# This is a basic workflow to help you get started with Actions
+
+name: build docker image
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build and push 
+        uses: docker/build-push-action@latest
+        with:
+          push: false
+          tags: andreaceccanti/wlcg-jwt-compliance-tests:latest
+          context: ./docker
+        
