@@ -22,7 +22,7 @@ RUN cd /root && \
     cd curl-7.72.0 && \
     ./configure --with-ssl --disable-dependency-tracking && \
     make && make install && \
-    cd .. && rm -rf curl-7.72.0
+    cd .. && rm -rf curl-7.72.0 && rm curl-7.72.0.tar.gz
 
 RUN wget https://ci.cloud.cnaf.infn.it/view/repos/job/repo_test_ca/lastSuccessfulBuild/artifact/test-ca.repo -O /etc/yum.repos.d/test-ca.repo && \
     yum -y clean all && yum -y install igi-test-ca && \
@@ -30,7 +30,7 @@ RUN wget https://ci.cloud.cnaf.infn.it/view/repos/job/repo_test_ca/lastSuccessfu
     chmod 600 /home/test/.globus/usercred.p12 && \
     chown -R test:test /home/test/.globus
 
-RUN yum -y install voms-clients-java gfal2-util gfal2-all gfal2-python jq && \
+RUN yum -y install voms-clients-java gfal2-util gfal2-all gfal2-python davix jq && \
     yum clean all && \
     yum -y install https://github.com/indigo-dc/oidc-agent/releases/download/v3.3.5/oidc-agent-3.3.5-1.el7.x86_64.rpm && \
     yum install -y python-pip python-enum && \
@@ -39,6 +39,7 @@ RUN yum -y install voms-clients-java gfal2-util gfal2-all gfal2-python jq && \
     pip install --upgrade oic && \
     pip install --upgrade requests && \
     pip install --upgrade pyyaml && \
+    pip install --upgrade shyaml && \
     rm -rf /var/cache/yum
 
 ENV TINI_VERSION v0.18.0
