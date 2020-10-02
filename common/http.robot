@@ -4,8 +4,6 @@ Resource   common/utils.robot
 Resource   common/oidc-agent.robot
 Resource   common/endpoint.robot
 
-Library   HttpLibrary
-
 *** Keywords ***
 
 SE Context
