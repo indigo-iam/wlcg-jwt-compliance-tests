@@ -15,6 +15,7 @@ Suite Setup   Default Suite Setup
 
 *** Keywords ***
 Default Suite Setup
+     Set Environment Variable  REQUESTS_CA_BUNDLE  ${x509.trustanchors}
      ${SUITE_UUID}   Generate UUID 
      Set Global Variable   ${SUITE_UUID}   ${suite_uuid}
      ${token}   Get token

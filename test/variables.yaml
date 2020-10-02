@@ -2,6 +2,8 @@ oauth:
   token:
     issuer: https://wlcg.cloud.cnaf.infn.it/
 
+x509.trustanchors: /etc/grid-security/certificates
+
 oidc-agent:
   provider-alias: wlcg
 
