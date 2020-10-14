@@ -6,7 +6,7 @@ Resource   common/oidc-agent.robot
 *** Variables ***
 
 ${x509.trustdir}  /etc/grid-security/certificates
-${curl.opts.default}  -s -L -i -f --show-error --capath ${x509.trustdir}
+${curl.opts.default}  --max-time 10 -s -L -i -f --show-error --capath ${x509.trustdir}
 
 *** Keywords ***
 

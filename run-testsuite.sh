@@ -37,5 +37,5 @@ if [ -n "${ROBOT_ARGS}" ]; then
   ARGS="${ARGS} ${ROBOT_ARGS}"
 fi
 
-echo "JWT complicance test suite run against: $1"
-robot ${ARGS} --variable se_alias:$1 test 
+echo "JWT compliance test suite run against: $1"
+robot ${ARGS} --variable se_alias:$1 --name $1 -G $1 test 
