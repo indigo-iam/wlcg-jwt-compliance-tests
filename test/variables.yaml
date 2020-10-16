@@ -50,7 +50,7 @@ endpoints:
     endpoint: https://golias100.farm.particle.cz
     paths:
       wlcg: /dpm/farm.particle.cz/home/wlcg
-manchester-dpm:
+  manchester-dpm:
     desc: Manchester DPM
     type: DPM
     endpoint: https://vm33.in.tier2.hep.manchester.ac.uk

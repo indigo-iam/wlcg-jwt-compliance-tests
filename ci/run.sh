@@ -19,19 +19,22 @@ for e in ${endpoints}; do
   REPORTS_DIR=${reports_dir}/${e} ./run-testsuite.sh ${e}
 done
 
-set -e
-
 reports=$(find ${reports_dir} -name output.xml)
 
-rebot --report ${reports_dir}/joint-report.html \
+set -e
+
+echo "Creating final report..."
+rebot --nostatusrc \
+  --report ${reports_dir}/joint-report.html \
   --log ${reports_dir}/joint-log.html \
   --ReportTitle "JWT compliance tests ${now}" \
   --name "JWT compliance tests" \
   ${reports}
 
-export BEARER_TOKEN=$(oidc-token wlcg)
 
-gfal-mkdir -p ${REPORTS_URL}
+export BEARER_TOKEN=$(oidc-token wlcg)
+echo "Uploading report to ${REPORTS_URL}"
+
 gfal-mkdir ${REPORTS_URL}/${now}
 gfal-copy -r ${reports_dir} ${REPORTS_URL}/${now}
 

@@ -1,6 +1,5 @@
 import requests
 from os import getenv
-from tempfile import mkstemp
 
 
 def build_authz_headers():
