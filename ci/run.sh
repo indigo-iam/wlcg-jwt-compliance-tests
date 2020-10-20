@@ -2,6 +2,7 @@
 set -e
 
 REPORTS_URL=${REPORTS_URL:-davs://amnesiac.cloud.cnaf.infn.it:8443/wlcg/jwt-compliance-reports}
+REPORTS_DIR_BASE=${REPORTS_DIR_BASE:-/tmp}
 
 now=$(date +%Y%m%d_%H%M%S)
 eval $(oidc-agent --no-autoload)
@@ -9,7 +10,7 @@ oidc-add --pw-cmd='echo $OIDC_AGENT_SECRET' wlcg
 
 endpoints=$(cat test/variables.yaml | shyaml keys endpoints | grep -v storm-example)
 
-reports_dir=reports/${now}
+reports_dir=${REPORTS_DIR_BASE}/reports/${now}
 
 mkdir -p reports/${now}
 
