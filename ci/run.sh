@@ -5,7 +5,7 @@ REPORTS_URL=${REPORTS_URL:-davs://amnesiac.cloud.cnaf.infn.it:8443/wlcg/jwt-comp
 
 now=$(date +%Y%m%d_%H%M%S)
 eval $(oidc-agent --no-autoload)
-oidc-add wlcg --pw-cmd='echo $OIDC_AGENT_SECRET'
+oidc-add --pw-cmd='echo $OIDC_AGENT_SECRET' wlcg
 
 endpoints=$(cat test/variables.yaml | shyaml keys endpoints | grep -v storm-example)
 
