@@ -15,7 +15,7 @@ jobs:
         run: docker-compose up trust
 
       - name: Start testsuite
-        run: 
+        run: |
           docker-compose up -d ts 
           docker-compose exec ts bash -c 'cd test-suite && sh ci/run.sh'
           docker-compose down
