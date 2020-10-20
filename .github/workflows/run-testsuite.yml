@@ -3,9 +3,14 @@ name: Run JWT compliance testsuite
 on:
   push:
     branches: [ master ]
-jobs:
 
+  schedule:
+    - cron: '0 13 * * *'
+
+jobs:
   run-testsuite:
+    name: JWT compliance test suite
+
     runs-on: ubuntu-latest
     
     steps:
