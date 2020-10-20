@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 REPORTS_URL=${REPORTS_URL:-davs://amnesiac.cloud.cnaf.infn.it:8443/wlcg/jwt-compliance-reports}
 
