@@ -24,6 +24,7 @@ jobs:
           OIDC_AGENT_SECRET: ${{ secrets.OIDC_AGENT_SECRET }}
             # RUN_DEBUG: yes
         run: |
+          chmod 777 reports
           docker-compose up -d ts 
           docker-compose exec -T ts bash -c 'cd test-suite && sh ci/run.sh'
           docker-compose down
@@ -32,5 +33,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: reports
-          path: /tmp/reports/
+          path: reports
           retention-days: 30

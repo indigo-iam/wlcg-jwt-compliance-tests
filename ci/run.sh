@@ -2,7 +2,7 @@
 set -e
 
 REPORTS_URL=${REPORTS_URL:-davs://amnesiac.cloud.cnaf.infn.it:8443/wlcg/jwt-compliance-reports}
-REPORTS_DIR_BASE=${REPORTS_DIR_BASE:-/tmp}
+REPORTS_DIR_BASE=${REPORTS_DIR_BASE:-$(pwd)/reports}
 
 if [ -n "${RUN_DEBUG}" ]; then
   set -x
