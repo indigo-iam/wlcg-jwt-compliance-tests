@@ -19,11 +19,18 @@ jobs:
       - name: Fetch crls
         run: docker-compose up trust
 
-      - name: Start testsuite
+      - name: Run testsuite
         env:
           OIDC_AGENT_SECRET: ${{ secrets.OIDC_AGENT_SECRET }}
-          RUN_DEBUG: yes
+            # RUN_DEBUG: yes
         run: |
           docker-compose up -d ts 
           docker-compose exec -T ts bash -c 'cd test-suite && sh ci/run.sh'
           docker-compose down
+
+      - name: Archive reports
+        uses: actions/upload-artifact@v2
+        with:
+          name: reports
+          path: /tmp/reports/
+          retention-days: 30

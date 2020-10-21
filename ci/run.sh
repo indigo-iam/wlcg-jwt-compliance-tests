@@ -36,11 +36,14 @@ rebot --nostatusrc \
   --name "JWT compliance tests" \
   ${reports}
 
+if [ -n "${SKIP_REPORT_UPLOAD}" ]; then
+  echo "Skipping report upload as requested by configuration"
+else 
+  export BEARER_TOKEN=$(oidc-token wlcg)
+  echo "Uploading report to ${REPORTS_URL}"
 
-export BEARER_TOKEN=$(oidc-token wlcg)
-echo "Uploading report to ${REPORTS_URL}"
-
-gfal-mkdir ${REPORTS_URL}/${now}
-gfal-copy -r ${reports_dir} ${REPORTS_URL}/${now}
+  gfal-mkdir ${REPORTS_URL}/${now}
+  gfal-copy -r ${reports_dir} ${REPORTS_URL}/${now}
+fi
 
 echo "Done!"
