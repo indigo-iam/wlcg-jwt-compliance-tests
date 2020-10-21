@@ -24,7 +24,7 @@ jobs:
           OIDC_AGENT_SECRET: ${{ secrets.OIDC_AGENT_SECRET }}
             # RUN_DEBUG: yes
         run: |
-          chmod 777 reports
+          mkdir -p reports && chmod 777 reports
           docker-compose up -d ts 
           docker-compose exec -T ts bash -c 'cd test-suite && sh ci/run.sh'
           docker-compose down
