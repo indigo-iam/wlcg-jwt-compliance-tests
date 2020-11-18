@@ -56,3 +56,10 @@ endpoints:
     endpoint: https://vm33.in.tier2.hep.manchester.ac.uk
     paths:
       wlcg: /dpm/tier2.hep.manchester.ac.uk/home/wlcg
+  cerntrunk-dpm:
+    desc: Trunk testbed at CERN for DPM
+    type: DPM
+    endpoint: https://dpmhead-trunk.cern.ch
+    paths:
+      wlcg: /dpm/cern.ch/home/wlcg
+      
