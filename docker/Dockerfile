@@ -40,6 +40,7 @@ RUN yum -y install voms-clients-java gfal2-util gfal2-all gfal2-python davix jq 
     pip install --upgrade requests && \
     pip install --upgrade pyyaml && \
     pip install --upgrade shyaml && \
+    pip install --upgrade oidc && \
     rm -rf /var/cache/yum
 
 ENV TINI_VERSION v0.18.0
