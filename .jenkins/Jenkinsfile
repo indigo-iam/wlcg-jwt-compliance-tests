@@ -36,10 +36,9 @@ pipeline {
         archive 'reports/**'
 
         step([$class: 'RobotPublisher',
-          disableArchiveOutput: false,
+          disableArchiveOutput: true,
           logFileName: 'joint-log.html',
           otherFiles: '*.png',
-          outputFileName: 'output.xml',
           outputPath: "reports",
           passThreshold: 100,
           reportFileName: 'joint-report.html',
