@@ -35,15 +35,6 @@ pipeline {
       steps {
         sh "docker cp wlcg-jwt-tests_ts_1:/tmp/reports ."
         archive 'reports/**'
-
-        step([$class: 'RobotPublisher',
-          disableArchiveOutput: true,
-          logFileName: 'joint-log.html',
-          otherFiles: '*.png',
-          outputPath: "reports",
-          passThreshold: 100,
-          reportFileName: 'joint-report.html',
-          unstableThreshold: 90])
       }
     }
   }
