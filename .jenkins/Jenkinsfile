@@ -1,0 +1,69 @@
+#!/usr/bin/env groovy
+pipeline {
+  agent { label 'docker' }
+
+  options {
+    timeout(time: 1, unit: 'HOURS')
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+    ansiColor('xterm')
+    timestamps()
+  }
+
+  environment {
+    OIDC_AGENT_SECRET = credentials('wlcg_jwt_oidc_agent_secret')
+    SKIP_REPORT_UPLOAD = 'y'
+  }
+
+  stages {
+    stage ('run'){
+      steps {
+        script {
+          sh returnStatus: true, script: '''#!/bin/bash 
+          set -ex
+          mkdir -p /tmp/reports 
+          docker-compose up trust
+          docker-compose up -d ts
+          docker-compose exec -T ts bash -c 'cd test-suite && sh ci/run.sh'
+          '''
+        }
+      }
+    }
+
+    stage('report'){
+      steps {
+        sh "docker cp wlcg-jwt-tests_ts_1:/tmp/reports ."
+        archive 'reports/**'
+
+        step([$class: 'RobotPublisher',
+          disableArchiveOutput: false,
+          logFileName: 'joint-log.html',
+          otherFiles: '*.png',
+          outputFileName: 'output.xml',
+          outputPath: "reports",
+          passThreshold: 100,
+          reportFileName: 'joint-report.html',
+          unstableThreshold: 90])
+      }
+    }
+  }
+
+  post {
+    cleanup {
+      sh '''#!/bin/bash
+      docker-compose down
+      '''
+    }
+
+    failure {
+      slackSend color: 'danger', message: "${env.JOB_NAME} - #${env.BUILD_NUMBER} Failure (<${env.BUILD_URL}|Open>)"
+    }
+
+    changed {
+      script{
+        if('SUCCESS'.equals(currentBuild.currentResult)) {
+          slackSend color: 'good', message: "${env.JOB_NAME} - #${env.BUILD_NUMBER} Back to normal (<${env.BUILD_URL}|Open>)"
+        }
+      }
+    }
+  }
+}
