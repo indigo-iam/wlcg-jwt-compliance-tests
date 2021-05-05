@@ -34,12 +34,42 @@ docker-compose up trust # and wait for fetch crl to be done
 docker-compose up -d ts
 ```
 
+You can modify the compose to pickup your local oidc-agent configuration
+instead of the one used currently, just change the following line:
+
+```yaml
+  ...
+  volumes:
+      - cabundle:/etc/pki
+      - trustanchors:/etc/grid-security/certificates
+      - .:/home/test/test-suite
+      # change the following line to mount your local oidc-agent config 
+      # within the container 
+      - ./assets/.config/oidc-agent:/home/test/.config/oidc-agent:ro 
+      
+```
+
 You can now log into the testsuite container:
 
 ```
 docker-compose exec ts bash
 ```
 
+You will need to initialize oidc-agent inside the container. 
+
+```
+$ eval $(oidc-agent --no-autoload)
+$ oidc-add wlcg
+```
+
+You can then run the testsuite against one of the registered endpoint
+
+```
+cd test-suite
+./run-testsuite.sh cnaf-amnesiac
+```
+
+To add an endpoint, edit the `./test/variables.yaml` file.
 
 ## Running the testsuite without docker
 
