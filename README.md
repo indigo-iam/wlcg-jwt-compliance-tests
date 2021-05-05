@@ -34,12 +34,21 @@ docker-compose up trust # and wait for fetch crl to be done
 docker-compose up -d ts
 ```
 
+You can now log into the testsuite container:
+
+```
+docker-compose exec ts bash
+```
+
+
 ## Running the testsuite without docker
 
 Find out all the things you need on your machine by looking at the [docker
 image](./docker/Dockerfile) used to run the testsuite.
 
 ## CI test suite run
+
+### GH actions 
 
 The test suite is run on GH actions:
 
@@ -48,5 +57,15 @@ The test suite is run on GH actions:
 
 Reports are stored
 [here](https://amnesiac.cloud.cnaf.infn.it:8443/wlcg/jwt-compliance-reports/).
+
+### CNAF SD Jenkins
+
+The test suite is also run on the CNAF software develop group Jenkins instance:
+
+- at each commit of the master branch
+- every day at 10 CEST
+
+Reports can be accessed
+[here](https://ci.cloud.cnaf.infn.it/view/wlcg/job/wlcg-jwt-compliance-tests)
 
 [robot]: https://robotframework.org/

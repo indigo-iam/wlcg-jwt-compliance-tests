@@ -24,7 +24,7 @@ pipeline {
         script {
           sh returnStatus: true, script: '''#!/bin/bash 
           set -ex
-          mkdir -p /tmp/reports 
+          mkdir -p /tmp/reports  && rm -rf /tmp/reports/*
           docker-compose up trust
           docker-compose up -d ts
           docker-compose exec -T ts bash -c 'cd test-suite && sh ci/run.sh'
