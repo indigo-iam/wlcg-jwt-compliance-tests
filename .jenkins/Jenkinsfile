@@ -10,6 +10,8 @@ pipeline {
     timestamps()
   }
 
+  triggers { cron('0 10 * * *') }
+
   environment {
     OIDC_AGENT_SECRET = credentials('wlcg_jwt_oidc_agent_secret')
     REPORTS_DIR_BASE = '/tmp/reports'
