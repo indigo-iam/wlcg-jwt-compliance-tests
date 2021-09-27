@@ -8,6 +8,7 @@ pipeline {
     ansiColor('xterm')
     disableConcurrentBuilds()
     timestamps()
+    lock resource: 'ts-run-locked-resource'
   }
 
   triggers { cron('0 10 * * *') }
