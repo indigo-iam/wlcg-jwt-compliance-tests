@@ -62,4 +62,9 @@ endpoints:
     endpoint: https://dpmhead-trunk.cern.ch
     paths:
       wlcg: /dpm/cern.ch/home/wlcg
-      
+  ral-test-xrootd:
+    desc: Test gateway for Echo
+    type: XRootD
+    endpoint: https://ceph-gw8.gridpp.rl.ac.uk:1094
+    paths:
+      wlcg: /dteam:wlcg
