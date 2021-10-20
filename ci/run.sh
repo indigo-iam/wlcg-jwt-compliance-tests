@@ -12,7 +12,7 @@ now=$(date +%Y%m%d_%H%M%S)
 eval $(oidc-agent --no-autoload)
 oidc-add --pw-cmd='echo $OIDC_AGENT_SECRET' wlcg
 
-endpoints=$(cat test/variables.yaml | shyaml keys endpoints | grep -v storm-example)
+endpoints=$(cat test/variables.yaml | shyaml keys endpoints | grep -v se-storm-example)
 
 reports_dir=${REPORTS_DIR_BASE}/reports/${now}
 
