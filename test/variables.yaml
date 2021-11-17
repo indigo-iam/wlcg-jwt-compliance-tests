@@ -44,24 +44,6 @@ endpoints:
     endpoint: https://red-gridftp12.unl.edu:1094
     paths:
       wlcg: /user/dteam
-  se-prague-dpm:
-    desc: Prague DPM
-    type: DPM
-    endpoint: https://golias100.farm.particle.cz
-    paths:
-      wlcg: /dpm/farm.particle.cz/home/wlcg
-  se-manchester-dpm:
-    desc: Manchester DPM
-    type: DPM
-    endpoint: https://vm33.in.tier2.hep.manchester.ac.uk
-    paths:
-      wlcg: /dpm/tier2.hep.manchester.ac.uk/home/wlcg
-  se-cerntrunk-dpm:
-    desc: Trunk testbed at CERN for DPM
-    type: DPM
-    endpoint: https://dpmhead-trunk.cern.ch
-    paths:
-      wlcg: /dpm/cern.ch/home/wlcg
   se-ral-test-xrootd:
     desc: Test gateway for Echo
     type: XRootD
