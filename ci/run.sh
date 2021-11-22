@@ -14,7 +14,7 @@ oidc-add --pw-cmd='echo $OIDC_AGENT_SECRET' wlcg
 
 endpoints=$(cat test/variables.yaml | shyaml keys endpoints | grep -v se-storm-example)
 
-reports_dir=${REPORTS_DIR_BASE}/reports/${now}
+reports_dir=${REPORTS_DIR_BASE}/reports/latest
 
 mkdir -p ${reports_dir}
 
