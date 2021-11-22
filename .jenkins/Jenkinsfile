@@ -13,10 +13,15 @@ pipeline {
 
   triggers { cron('0 10 * * *') }
 
+  parameters {
+    string(defaultValue: 'federica.agostini89@gmail.com', description: 'Job report\'s mail recipients', name: 'MAIL_RECIPIENTS')
+  }
+
   environment {
     OIDC_AGENT_SECRET = credentials('wlcg_jwt_oidc_agent_secret')
     REPORTS_DIR_BASE = '/tmp/reports'
     SKIP_REPORT_UPLOAD = 'y'
+    MAIL_RECIPIENTS = "${params.MAIL_RECIPIENTS}"
   }
 
   stages {
@@ -39,6 +44,19 @@ pipeline {
       steps {
         sh "docker cp wlcg-jwt-tests_ts_1:/tmp/reports ."
         archive 'reports/**'
+      }
+    }
+
+    stage('send email'){
+      when {
+        triggeredBy "TimerTrigger"    
+      }
+      steps {
+        script {
+          emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\nMore info at: ${env.BUILD_URL}",
+          subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}",
+          to: "${MAIL_RECIPIENTS}"
+        }
       }
     }
   }
