@@ -54,7 +54,7 @@ pipeline {
       steps {
         script {
           emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\nMore info at: ${env.BUILD_URL}",
-          subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}",
+          subject: "[Jenkins] ${env.JOB_NAME} report ${env.BUILD_TIMESTAMP}",
           to: "${MAIL_RECIPIENTS}"
         }
       }
