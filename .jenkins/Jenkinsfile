@@ -51,7 +51,7 @@ pipeline {
       when {
         allOf {
           triggeredBy "TimerTrigger"
-          branch "CNSD-228"
+          branch "master"
         }
       }
       steps {
