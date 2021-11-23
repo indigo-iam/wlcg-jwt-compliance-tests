@@ -11,7 +11,7 @@ pipeline {
     lock resource: 'wlcg-jwt-compliance-lock'
   }
 
-  triggers { cron('0 10 * * *') }
+  triggers { cron('H/10 * * * *') }
 
   parameters {
     string(defaultValue: 'federica.agostini89@gmail.com', description: 'Job report\'s mail recipients', name: 'MAIL_RECIPIENTS')
@@ -51,7 +51,7 @@ pipeline {
       when {
         allOf {
           triggeredBy "TimerTrigger"
-          branch "master"
+          branch "CNSD-228"
         }
       }
       steps {
