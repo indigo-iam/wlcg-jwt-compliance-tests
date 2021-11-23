@@ -49,14 +49,17 @@ pipeline {
 
     stage('send email'){
       when {
-        triggeredBy "TimerTrigger"    
+        allOf {
+          triggeredBy "TimerTrigger"
+          branch "master"
+        }
       }
       steps {
         script {
           emailext to: "${env.MAIL_RECIPIENTS}",
           subject: "[Jenkins] ${env.JOB_NAME} report ${env.BUILD_TIMESTAMP}",
-          mimeType: 'text/html',
-          body: '${FILE,path="reports/reports/latest/joint-report.html"}'
+          attachmentsPattern: '**/reports/reports/latest/*',
+          body: "More info at ${env.BUILD_URL}artifact/reports/reports/latest/"
         }
       }
     }
