@@ -11,7 +11,7 @@ pipeline {
     lock resource: 'wlcg-jwt-compliance-lock'
   }
 
-  triggers { cron('H/10 * * * *') }
+  triggers { cron('0 10 * * *') }
 
   parameters {
     string(defaultValue: 'federica.agostini89@gmail.com', description: 'Job report\'s mail recipients', name: 'MAIL_RECIPIENTS')
