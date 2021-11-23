@@ -13,15 +13,11 @@ pipeline {
 
   triggers { cron('0 10 * * *') }
 
-  parameters {
-    string(defaultValue: 'federica.agostini89@gmail.com', description: 'Job report\'s mail recipients', name: 'MAIL_RECIPIENTS')
-  }
-
   environment {
     OIDC_AGENT_SECRET = credentials('wlcg_jwt_oidc_agent_secret')
     REPORTS_DIR_BASE = '/tmp/reports'
     SKIP_REPORT_UPLOAD = 'y'
-    MAIL_RECIPIENTS = "${params.MAIL_RECIPIENTS}"
+    MAIL_RECIPIENTS = 'federica.agostini89@gmail.com'
   }
 
   stages {
