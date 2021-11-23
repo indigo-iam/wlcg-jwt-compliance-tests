@@ -53,9 +53,10 @@ pipeline {
       }
       steps {
         script {
-          emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\nMore info at: ${env.BUILD_URL}",
+          emailext to: "${env.MAIL_RECIPIENTS}",
           subject: "[Jenkins] ${env.JOB_NAME} report ${env.BUILD_TIMESTAMP}",
-          to: "${MAIL_RECIPIENTS}"
+          mimeType: 'text/html',
+          body: '${FILE,path="reports/reports/latest/joint-report.html"}'
         }
       }
     }
