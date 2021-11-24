@@ -53,9 +53,10 @@ pipeline {
       steps {
         script {
           emailext to: "${env.MAIL_RECIPIENTS}",
-          subject: "WLCG JWT compliance test report ${env.BUILD_TIMESTAMP}",
-          attachmentsPattern: 'reports/reports/latest/*.html',
-          body: "More info at ${env.BUILD_URL}artifact/reports/reports/latest/"
+          replyTo: "noreply@cnaf.infn.it",
+          subject: "WLCG JWT compliance test report - #${env.BUILD_NUMBER} ${env.BUILD_TIMESTAMP}",
+          attachmentsPattern: "reports/reports/latest/joint-*.html",
+          body: "More info at ${env.BUILD_URL}artifact/reports/reports/latest/joint-report.html"
         }
       }
     }
