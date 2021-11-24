@@ -53,8 +53,8 @@ pipeline {
       steps {
         script {
           emailext to: "${env.MAIL_RECIPIENTS}",
-          subject: "[Jenkins] ${env.JOB_NAME} report ${env.BUILD_TIMESTAMP}",
-          attachmentsPattern: '**/reports/reports/latest/*',
+          subject: "WLCG JWT compliance test report ${env.BUILD_TIMESTAMP}",
+          attachmentsPattern: 'reports/reports/latest/*.html',
           body: "More info at ${env.BUILD_URL}artifact/reports/reports/latest/"
         }
       }
