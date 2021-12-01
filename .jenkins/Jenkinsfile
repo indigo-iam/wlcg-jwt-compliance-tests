@@ -17,6 +17,7 @@ pipeline {
     OIDC_AGENT_SECRET = credentials('wlcg_jwt_oidc_agent_secret')
     REPORTS_DIR_BASE = '/tmp/reports'
     SKIP_REPORT_UPLOAD = 'y'
+    MAIL_RECIPIENTS = 'wlcg-doma-tpc@cern.ch'
   }
 
   stages {
@@ -39,6 +40,23 @@ pipeline {
       steps {
         sh "docker cp wlcg-jwt-tests_ts_1:/tmp/reports ."
         archive 'reports/**'
+      }
+    }
+
+    stage('send email'){
+      when {
+        allOf {
+          triggeredBy "TimerTrigger"
+          branch "master"
+        }
+      }
+      steps {
+        script {
+          emailext to: "${env.MAIL_RECIPIENTS}",
+          replyTo: "noreply@cnaf.infn.it",
+          subject: "WLCG JWT compliance test report - #${env.BUILD_NUMBER} ${env.BUILD_TIMESTAMP}",
+          body: "More info at ${env.BUILD_URL}artifact/reports/reports/latest/joint-report.html"
+        }
       }
     }
   }
