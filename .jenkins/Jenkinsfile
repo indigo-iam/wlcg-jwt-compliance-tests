@@ -11,7 +11,7 @@ pipeline {
     lock resource: 'wlcg-jwt-compliance-lock'
   }
 
-  triggers { cron('55 15 * * *') }
+  triggers { cron('00 15 * * *') }
 
   environment {
     OIDC_AGENT_SECRET = credentials('wlcg_jwt_oidc_agent_secret')
