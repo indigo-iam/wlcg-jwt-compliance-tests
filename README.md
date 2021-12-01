@@ -93,7 +93,7 @@ Reports are stored
 The test suite is also run on the CNAF software develop group Jenkins instance:
 
 - at each commit of the master branch
-- every day at 10 CEST
+- every day at 15 CET (or CEST)
 
 Reports can be accessed
 [here](https://ci.cloud.cnaf.infn.it/view/wlcg/job/wlcg-jwt-compliance-tests)
