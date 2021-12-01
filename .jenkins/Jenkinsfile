@@ -17,7 +17,7 @@ pipeline {
     OIDC_AGENT_SECRET = credentials('wlcg_jwt_oidc_agent_secret')
     REPORTS_DIR_BASE = '/tmp/reports'
     SKIP_REPORT_UPLOAD = 'y'
-    MAIL_RECIPIENTS = 'federica.agostini89@gmail.com'
+    MAIL_RECIPIENTS = 'wlcg-doma-tpc@cern.ch'
   }
 
   stages {
