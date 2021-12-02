@@ -32,6 +32,12 @@ endpoints:
     endpoint: https://prometheus.desy.de:2443
     paths:
       wlcg: /VOs/wlcg
+  se-fnal:
+    desc: FNAL stkendca06a
+    type: dCache
+    endpoint: https://stkendca06a.fnal.gov:2880
+    paths:
+      wlcg: /VOs/dteam
   se-cern-eos:
     desc: CERN EOS
     type: EOS
