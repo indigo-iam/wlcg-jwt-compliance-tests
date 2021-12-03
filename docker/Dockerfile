@@ -9,7 +9,7 @@ ENV TEST_USER_UID $TEST_USER_UID
 RUN   yum clean all && \
       yum install -y hostname epel-release && \
       yum -y update && \
-      yum -y install which wget tar gcc openssl-devel sudo file make which && \
+      yum -y install which wget tar gcc openssl-devel sudo file make which python36 && \
       echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
       adduser --uid ${TEST_USER_UID} ${TEST_USER} && \
       usermod -a -G wheel ${TEST_USER} && \
@@ -31,16 +31,20 @@ RUN wget https://ci.cloud.cnaf.infn.it/view/repos/job/repo_test_ca/lastSuccessfu
     chown -R test:test /home/test/.globus
 
 RUN yum -y install voms-clients-java gfal2-util gfal2-all gfal2-python davix jq && \
+    curl -sL https://rpm.nodesource.com/setup_14.x | bash - && \
+    yum install -y nodejs && \
+    npm install -g jwt-cli && \
     yum clean all && \
-    yum -y install https://github.com/indigo-dc/oidc-agent/releases/download/v3.3.5/oidc-agent-3.3.5-1.el7.x86_64.rpm && \
-    yum install -y python-pip python-enum && \
-    pip install --upgrade pip && \
-    pip install --upgrade robotframework-httplibrary && \
-    pip install --upgrade oic && \
-    pip install --upgrade requests && \
-    pip install --upgrade pyyaml && \
-    pip install --upgrade shyaml && \
-    pip install --upgrade oidc && \
+    wget https://repo.data.kit.edu/data-kit-edu-centos7.repo -O /etc/yum.repos.d/data-kit-edu-centos7.repo && \
+    yum install -y oidc-agent && \
+    pip3 install --upgrade pip && \
+    pip3 install --upgrade robotframework-httplibrary && \
+    pip3 install --upgrade oic && \
+    pip3 install --upgrade requests && \
+    pip3 install --upgrade pyyaml && \
+    pip3 install --upgrade shyaml && \
+    # bug in newer pyjwt version reported in https://github.com/Azure/azure-sdk-for-python/issues/16035
+    pip3 install pyjwt==1.7.0 && \
     rm -rf /var/cache/yum
 
 ENV TINI_VERSION v0.18.0

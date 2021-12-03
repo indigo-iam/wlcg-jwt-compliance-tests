@@ -39,5 +39,7 @@ fi
 
 export REQUESTS_CA_BUNDLE=${REQUESTS_CA_BUNDLE:-/etc/grid-security/certificates}
 
+alias python='python3'
+
 echo "JWT compliance test suite run against: $1"
 robot ${ARGS} --variable se_alias:$1 --name $1 -G $1 test 
