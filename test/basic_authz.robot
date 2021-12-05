@@ -22,7 +22,7 @@ Write access denied to WLCG members
     ${uuid}   Generate UUID
     ${url}   SE URL   robot-write-access-denied-${uuid}
     ${rc}   ${out}   Curl Put Error   /etc/services  ${url}
-    Should Contain   ${out}   403
+    ${ret}   Should Match Regexp   ${out}   40[0-9].*
 
 Write access granted to storage.modify:/ scope
     ${token}   Get token
@@ -47,12 +47,12 @@ Create dir granted to storage.modify:/ scope
     ${rc}   ${out}   Curl MKCOL Success   ${url}
     Should Match Regexp   ${out}   20[0|1].*
 
-Write access denied with storage.read:/
+Write access denied to storage.read:/ scope
     ${token}   Get token   scope=-s storage.read:/
     ${uuid}   Generate UUID
     ${url}   SE URL   robot-test-${uuid}
     ${rc}   ${out}   Curl Put Error   /etc/services  ${url}
-    Should Contain   ${out}   403
+    ${ret}   Should Match Regexp   ${out}   40[0-9].*
 
 Path authorization enforced on storage.read
     ${token}   Get token   scope=-s storage.read:/wlcg-jwt-compliance
@@ -60,7 +60,7 @@ Path authorization enforced on storage.read
     ${uuid}   Generate UUID
     ${url}   Set Variable   ${endpoint}/not-found-${uuid}
     ${rc}   ${out}   Curl Error   ${url}
-    Should Contain   ${out}   403
+    ${ret}   Should Match Regexp   ${out}   40[1|3].*
     ${url}   SE URL  not-found-${uuid}
     ${rc}   ${out}   Curl Error   ${url}
     Should Contain   ${out}   404
@@ -71,9 +71,9 @@ Path authorization enforced on storage.write
     ${uuid}   Generate UUID
     ${url}   Set Variable   ${endpoint}/not-found-${uuid}
     ${rc}   ${out}   Curl Put Error   /etc/services  ${url}
-    Should Contain   ${out}   403
+    ${ret}   Should Match Regexp   ${out}   40[1|3].*
     ${url}   SE URL  not-found-${uuid}
-     ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
+    ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
     Should Match Regexp   ${out}   20[0|1].*
     
 storage.modify does not imply storage.read
@@ -84,7 +84,7 @@ storage.modify does not imply storage.read
     Should Match Regexp   ${out}   20[0|1].*
     ${token}   Get token   scope=-s storage.modify:/
     ${rc}   ${out}   Curl Error   ${url}
-    Should Contain   ${out}   403
+    ${ret}   Should Match Regexp   ${out}   40[1|3].*
 
 storage.create does not imply storage.read
     ${token}   Get token
@@ -94,7 +94,7 @@ storage.create does not imply storage.read
     Should Match Regexp   ${out}   20[0|1].*
     ${token}   Get token   scope=-s storage.create:/
     ${rc}   ${out}   Curl Error   ${url}
-    Should Contain   ${out}   403
+    ${ret}   Should Match Regexp   ${out}   40[1|3].*
 
 storage.create does not allow overwriting files
     ${token}   Get token
@@ -103,7 +103,7 @@ storage.create does not allow overwriting files
     ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
     ${token}   Get token   scope=-s storage.create:/
     ${rc}   ${out}   Curl Put Error   /etc/services  ${url}
-    Should Contain   ${out}   403
+    ${ret}   Should Match Regexp   ${out}   40[0-9].*
 
 storage.create does not allow deleting files
     ${token}   Get token
@@ -113,7 +113,7 @@ storage.create does not allow deleting files
     Should Match Regexp   ${out}   20[0|1].*
     ${token}   Get token   scope=-s storage.create:/
     ${rc}   ${out}   Curl Delete Error   ${url}
-    Should Contain   ${out}   403
+    ${ret}   Should Match Regexp   ${out}   40[0-9].*
 
 Default groups do not grant write access to /protected area
     ${token}   Get token   scope=-s wlcg.groups
@@ -123,7 +123,7 @@ Default groups do not grant write access to /protected area
     ${rc}   ${out}   Curl Error   ${url}
     Should Contain   ${out}   404
     ${rc}   ${out}   Curl Put Error   /etc/services  ${url}
-    Should Contain   ${out}   403
+    ${ret}   Should Match Regexp   ${out}   40[0-9].*
 
 Wlcg/test group grants full access to /protected area
     ${token}   Get token   scope=-s wlcg.groups:/wlcg/test
