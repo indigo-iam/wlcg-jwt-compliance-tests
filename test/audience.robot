@@ -16,7 +16,7 @@ Token with random audience is rejected
     ${token}   Get token   scope=-s openid   opts=--aud=${uuid}
     ${url}   SE URL   audience-test-${uuid}
     ${rc}   ${out}   Curl Error   ${url}
-    Should Contain   ${out}   401
+    ${ret}   Should Match Regexp   ${out}   40[0-9].*
 
 Token with correct audience is accepted
     ${se_config}   Get SE config
@@ -40,4 +40,4 @@ Token with invalid multiple audiences is rejected
     ${token}   Get token   scope=-s openid   opts=--aud="https://fake.audience:8443 ${uuid}"
     ${url}   SE URL   audience-test-${uuid}
     ${rc}   ${out}   Curl Error   ${url}
-    Should Contain   ${out}   401
+    ${ret}   Should Match Regexp   ${out}   40[0-9].*
