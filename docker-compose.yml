@@ -29,7 +29,7 @@ services:
       - cabundle:/etc/pki
       - trustanchors:/etc/grid-security/certificates
       - .:/home/test/test-suite
-      - ./assets/.config/oidc-agent:/home/test/.config/oidc-agent:ro
+      - ${HOME}/.config/oidc-agent:/home/test/.config/oidc-agent:ro
 
     entrypoint: /tini -- sleep infinity
 
