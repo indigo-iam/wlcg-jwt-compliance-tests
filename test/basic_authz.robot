@@ -38,7 +38,7 @@ Delete access granted to storage.modify:/ scope
     ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
     Should Match Regexp   ${out}   20[0|1].*
     ${rc}   ${out}   Curl Delete Success   ${url}
-    Should Contain   ${out}   204
+    ${ret}   Should Match Regexp   ${out}   2[0-9]{2}.*
 
 Create dir granted to storage.modify:/ scope
     ${token}   Get token
@@ -135,4 +135,4 @@ Wlcg/test group grants full access to /protected area
     ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
     Should Match Regexp   ${out}   20[0|1].*
     ${rc}   ${out}   Curl Delete Success   ${url}
-    Should Contain   ${out}   204
+    ${ret}   Should Match Regexp   ${out}   2[0-9]{2}.*
