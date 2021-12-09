@@ -13,25 +13,31 @@ endpoints:
     paths:
       wlcg: /wlcg
       tf: /tf
-  se-cnaf-amnesiac:
+  se-cnaf-amnesiac-storm:
     desc: CNAF StoRM development instance
     type: StoRM
     endpoint: https://amnesiac.cloud.cnaf.infn.it:8443
     paths:
       wlcg: /wlcg
       tf: /tf
-  se-infn-t1-xfer:
+  se-infn-t1-xfer-storm:
     desc: INFN T1 atlas production SE
     type: StoRM
     endpoint: https://xfer.cr.cnaf.infn.it:8443
     paths:
       wlcg: /wlcg
-  se-prometheus:
+  se-prometheus-dcache:
     desc: DESY prometheus
     type: dCache
     endpoint: https://prometheus.desy.de:2443
     paths:
       wlcg: /VOs/wlcg
+  se-fnal-dcache:
+    desc: FNAL stkendca06a
+    type: dCache
+    endpoint: https://stkendca06a.fnal.gov:2880
+    paths:
+      wlcg: /VOs/dteam
   se-cern-eos:
     desc: CERN EOS
     type: EOS

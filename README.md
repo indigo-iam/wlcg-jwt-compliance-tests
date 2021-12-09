@@ -74,7 +74,7 @@ To add an endpoint, edit the `./test/variables.yaml` file.
 ## Running the testsuite without docker
 
 Find out all the things you need on your machine by looking at the [docker
-image](./docker/Dockerfile) used to run the testsuite.
+image][docker-image] used to run the testsuite.
 
 ## CI test suite run
 
@@ -99,3 +99,4 @@ Reports can be accessed
 [here](https://ci.cloud.cnaf.infn.it/view/wlcg/job/wlcg-jwt-compliance-tests)
 
 [robot]: https://robotframework.org/
+[docker-image]: https://github.com/indigo-iam/robot-framework-docker/blob/main/docker/Dockerfile

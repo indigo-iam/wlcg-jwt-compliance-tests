@@ -16,7 +16,7 @@ services:
       - cabundle:/etc/pki
 
   ts:
-    image: andreaceccanti/wlcg-jwt-compliance-tests
+    image: indigoiam/robot-framework
 
     environment:
       - TZ=Europe/Rome
