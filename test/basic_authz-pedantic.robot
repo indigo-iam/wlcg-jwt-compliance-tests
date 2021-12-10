@@ -44,14 +44,14 @@ Path authorization enforced on storage.write
     Should Contain   ${out}   403
     ${url}   SE URL  not-found-${uuid}
      ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
-    Should Match Regexp   ${out}   20[0|1].*
+    Should Match Regexp   ${out}   20[01].*
 
 storage.modify does not imply storage.read
     ${token}   Get token
     ${uuid}   Generate UUID
     ${url}   SE URL  found-${uuid}
     ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
-    Should Match Regexp   ${out}   20[0|1].*
+    Should Match Regexp   ${out}   20[01].*
     ${token}   Get token   scope=-s storage.modify:/
     ${rc}   ${out}   Curl Error   ${url}
     Should Contain   ${out}   403
@@ -61,7 +61,7 @@ storage.create does not imply storage.read
     ${uuid}   Generate UUID
     ${url}   SE URL  found-${uuid}
     ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
-    Should Match Regexp   ${out}   20[0|1].*
+    Should Match Regexp   ${out}   20[01].*
     ${token}   Get token   scope=-s storage.create:/
     ${rc}   ${out}   Curl Error   ${url}
     Should Contain   ${out}   403
@@ -80,7 +80,7 @@ storage.create does not allow deleting files
     ${uuid}   Generate UUID
     ${url}   SE URL  overwrite-${uuid}
     ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
-    Should Match Regexp   ${out}   20[0|1].*
+    Should Match Regexp   ${out}   20[01].*
     ${token}   Get token   scope=-s storage.create:/
     ${rc}   ${out}   Curl Delete Error   ${url}
     Should Contain   ${out}   403
