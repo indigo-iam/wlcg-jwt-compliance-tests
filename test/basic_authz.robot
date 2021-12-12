@@ -60,7 +60,7 @@ Path authorization enforced on storage.read
     ${uuid}   Generate UUID
     ${url}   Set Variable   ${endpoint}/not-found-${uuid}
     ${rc}   ${out}   Curl Error   ${url}
-    ${ret}   Should Match Regexp   ${out}   40[13].*
+    ${ret}   Should Match Regexp   ${out}   40[^\D4].*
     ${url}   SE URL  not-found-${uuid}
     ${rc}   ${out}   Curl Error   ${url}
     Should Contain   ${out}   404
@@ -71,7 +71,7 @@ Path authorization enforced on storage.write
     ${uuid}   Generate UUID
     ${url}   Set Variable   ${endpoint}/not-found-${uuid}
     ${rc}   ${out}   Curl Put Error   /etc/services  ${url}
-    ${ret}   Should Match Regexp   ${out}   40[13].*
+    ${ret}   Should Match Regexp   ${out}   40[0-9].*
     ${url}   SE URL  not-found-${uuid}
     ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
     Should Match Regexp   ${out}   20[01].*
@@ -84,7 +84,7 @@ storage.modify does not imply storage.read
     Should Match Regexp   ${out}   20[01].*
     ${token}   Get token   scope=-s storage.modify:/
     ${rc}   ${out}   Curl Error   ${url}
-    ${ret}   Should Match Regexp   ${out}   40[13].*
+    ${ret}   Should Match Regexp   ${out}   40[0-9].*
 
 storage.create does not imply storage.read
     ${token}   Get token
@@ -94,13 +94,14 @@ storage.create does not imply storage.read
     Should Match Regexp   ${out}   20[01].*
     ${token}   Get token   scope=-s storage.create:/
     ${rc}   ${out}   Curl Error   ${url}
-    ${ret}   Should Match Regexp   ${out}   40[13].*
+    ${ret}   Should Match Regexp   ${out}   40[0-9].*
 
 storage.create does not allow overwriting files
     ${token}   Get token
     ${uuid}   Generate UUID
     ${url}   SE URL  overwrite-${uuid}
     ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
+    Should Match Regexp   ${out}   20[01].*
     ${token}   Get token   scope=-s storage.create:/
     ${rc}   ${out}   Curl Put Error   /etc/services  ${url}
     ${ret}   Should Match Regexp   ${out}   40[0-9].*
