@@ -25,7 +25,8 @@ be configured as follows:
 
 ## Running the testsuite with docker
 
-This the recommended way of running the testsuite.
+This the recommended way of running the testsuite. It requires you have a local oidc-agent configuration for a client named `wlcg` and registered on the WLCG IAM instance.
+
 To setup an environment for running the testsuite in docker,
 run the following commands:
 
@@ -34,20 +35,7 @@ docker-compose up trust # and wait for fetch crl to be done
 docker-compose up -d ts
 ```
 
-You can modify the compose to pickup your local oidc-agent configuration
-instead of the one used currently, just change the following line:
 
-```yaml
-  ...
-  volumes:
-      - cabundle:/etc/pki
-      - trustanchors:/etc/grid-security/certificates
-      - .:/home/test/test-suite
-      # change the following line to mount your local oidc-agent config 
-      # within the container 
-      - ./assets/.config/oidc-agent:/home/test/.config/oidc-agent:ro 
-      
-```
 
 You can now log into the testsuite container:
 
