@@ -16,8 +16,14 @@
 #
 set -e
 
-if [ $# -ne 1 ]; then
-  echo "Usage: $0 <seAlias>"
+if [ $# -lt 1 ] || [ $# -gt 2 ]; then
+  echo "Usage: $0 <seAlias> [<test>]"
+  echo
+  echo "If specified, <test> indicates a single test from the suite that is to"
+  echo "be run.  If <test> is omitted then all tests are run."
+  echo
+  echo "\"Token with random audience is rejected\" (including the quotes) is"
+  echo "an example <test> value."
   exit 1
 fi
 
@@ -37,7 +43,12 @@ if [ -n "${ROBOT_ARGS}" ]; then
   ARGS="${ARGS} ${ROBOT_ARGS}"
 fi
 
+if [ $# -eq 2 ]; then
+  ARGS="${ARGS} -t \"$2\""
+  PREAMBLE="Test \"$2\" of "
+fi
+
 export REQUESTS_CA_BUNDLE=${REQUESTS_CA_BUNDLE:-/etc/grid-security/certificates}
 
-echo "JWT compliance test suite run against: $1"
-robot ${ARGS} --variable se_alias:$1 --name $1 -G $1 test 
+echo "${PREAMBLE}JWT compliance test suite run against: $1"
+eval robot ${ARGS} --variable se_alias:$1 --name $1 -G $1 test
