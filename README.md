@@ -13,7 +13,7 @@ be configured as follows:
   - AuthZ will be based on the `storage.*` scopes in the token, e.g. a token
     with the `storage.modify:/` issued by the WLCG token issuer will grant
     write access on the whole storage area.
-- Read-only access (i.e., the ability to list directory contents and
+- Read access (i.e., the ability to list directory contents and
   read files) to all members of the WLCG VO, i.e.:
   - all clients presenting a valid VOMS proxy for the WLCG VO
   - all clients presenting a valid JWT token issued by the WLCG token issuer
