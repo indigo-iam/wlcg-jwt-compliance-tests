@@ -66,7 +66,7 @@ You can then run the testsuite against one of the registered endpoint
 
 ```
 cd test-suite
-./run-testsuite.sh cnaf-amnesiac
+./run-testsuite.sh se-cnaf-amnesiac-storm
 ```
 
 To add an endpoint, edit the `./test/variables.yaml` file.
