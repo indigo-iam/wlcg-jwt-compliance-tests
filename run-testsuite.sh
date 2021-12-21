@@ -16,28 +16,28 @@
 #
 set -e
 
-if [ $# -ne 1 ]; then
+if [ $# -lt 1 ]; then
   echo "Usage: $0 <seAlias>"
   exit 1
 fi
+
+target_se=$1
+shift
 
 DAV_HOST=${DAV_HOST:-localhost}
 
 REMOTE_DAV_HOST=${REMOTE_DAV_HOST:-${DAV_HOST:-localhost}}
 
-REPORTS_DIR=${REPORTS_DIR:-reports/$1}
+REPORTS_DIR=${REPORTS_DIR:-"reports/${target_se}"}
 
 ROBOT_ARGS=${ROBOT_ARGS:-}
 
 DEFAULT_ARGS="--pythonpath .:common --variable dav.host:${DAV_HOST} --variable remote.dav.host:${REMOTE_DAV_HOST} -d ${REPORTS_DIR}"
 
-ARGS=${DEFAULT_ARGS}
-
-if [ -n "${ROBOT_ARGS}" ]; then
-  ARGS="${ARGS} ${ROBOT_ARGS}"
-fi
+read -a ARGS <<< "${DEFAULT_ARGS} ${ROBOT_ARGS}"
+ARGS+=("$@")
 
 export REQUESTS_CA_BUNDLE=${REQUESTS_CA_BUNDLE:-/etc/grid-security/certificates}
 
-echo "JWT compliance test suite run against: $1"
-robot ${ARGS} --variable se_alias:$1 --name $1 -G $1 test 
+echo "JWT compliance test suite run against: ${target_se}"
+robot "${ARGS[@]}" --variable se_alias:${target_se} --name ${target_se} -G ${target_se} test 
