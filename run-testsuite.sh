@@ -17,7 +17,7 @@
 set -e
 
 if [ $# -lt 1 ]; then
-  echo "Usage: $0 <seAlias>"
+  echo "Usage: $0 <seAlias> <additionalRobotArguments>"
   exit 1
 fi
 
