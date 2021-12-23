@@ -25,7 +25,7 @@ be configured as follows:
 
 ## Running the testsuite with docker
 
-This the recommended way of running the testsuite. It requires you have a local oidc-agent configuration for a client named `wlcg` and registered on the WLCG IAM instance.
+This is the recommended way of running the testsuite. It requires you have a local oidc-agent configuration for a client named `wlcg` and registered on the WLCG IAM instance.
 
 To setup an environment for running the testsuite in docker,
 run the following commands:
