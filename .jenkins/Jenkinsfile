@@ -14,7 +14,7 @@ pipeline {
   triggers { cron('00 15 * * *') }
 
   parameters {
-    string(defaultValue: "--exclude pedantic-tests", description: 'Robot arguments', name: 'ROBOT_ARGS')
+    string(defaultValue: "--exclude strict", description: 'Robot arguments', name: 'ROBOT_ARGS')
   }
 
   environment {
