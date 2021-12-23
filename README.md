@@ -69,6 +69,12 @@ cd test-suite
 ./run-testsuite.sh se-cnaf-amnesiac-storm
 ```
 
+Additional arguments to `run-testsuite.sh` are forwarded to `robot`, e.g.
+
+```sh
+./run-testsuite.sh se-cnaf-amnesiac-storm --test "Token with correct audience is accepted"
+```
+
 To add an endpoint, edit the `./test/variables.yaml` file.
 
 ## Running the testsuite without docker
