@@ -40,7 +40,7 @@ Token with correct audience in multiple option is accepted
 
 Token with invalid multiple audiences is rejected (permissive)
     [Tags]   audience   permissive
-    Get token with invalid multiple audience
+    ${out}   Get token with invalid multiple audience
     ${ret}   Should Match Regexp   ${out}   40[134]
 
 Token with invalid multiple audiences is rejected (strict)
