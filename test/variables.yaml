@@ -37,7 +37,7 @@ endpoints:
     type: dCache
     endpoint: https://stkendca06a.fnal.gov:2880
     paths:
-      wlcg: /VOs/dteam
+      wlcg: /VOs/wlcg
   se-cern-eos:
     desc: CERN EOS
     type: EOS
