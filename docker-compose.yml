@@ -23,13 +23,14 @@ services:
       - REQUESTS_CA_BUNDLE=/etc/pki/tls/cert.pem
       - OIDC_AGENT_SECRET
       - REPORTS_DIR_BASE
+      - ROBOT_ARGS
       - SKIP_REPORT_UPLOAD
 
     volumes:
       - cabundle:/etc/pki
       - trustanchors:/etc/grid-security/certificates
       - .:/home/test/test-suite
-      - ./assets/.config/oidc-agent:/home/test/.config/oidc-agent:ro
+      - ${HOME}/.config/oidc-agent:/home/test/.config/oidc-agent:ro
 
     entrypoint: /tini -- sleep infinity
 

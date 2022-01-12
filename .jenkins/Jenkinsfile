@@ -13,9 +13,14 @@ pipeline {
 
   triggers { cron('00 15 * * *') }
 
+  parameters {
+    string(defaultValue: "--exclude strict", description: 'Robot arguments', name: 'ROBOT_ARGS')
+  }
+
   environment {
     OIDC_AGENT_SECRET = credentials('wlcg_jwt_oidc_agent_secret')
     REPORTS_DIR_BASE = '/tmp/reports'
+    ROBOT_ARGS = "${params.ROBOT_ARGS}"
     SKIP_REPORT_UPLOAD = 'y'
     MAIL_RECIPIENTS = 'wlcg-doma-tpc@cern.ch'
   }
@@ -28,6 +33,8 @@ pipeline {
           set -ex
           mkdir -p reports && rm -rf reports/*
           mkdir -p /tmp/reports  && rm -rf /tmp/reports/*
+          mkdir -p ${HOME}/.config/oidc-agent
+          cp assets/.config/oidc-agent/* $HOME/.config/oidc-agent/
           docker-compose up trust
           docker-compose up -d ts
           docker-compose exec -T ts bash -c 'cd test-suite && sh ci/run.sh'
