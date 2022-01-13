@@ -60,9 +60,10 @@ pipeline {
       steps {
         script {
           emailext to: "${env.MAIL_RECIPIENTS}",
-          replyTo: "noreply@cnaf.infn.it",
           subject: "WLCG JWT compliance test report - #${env.BUILD_NUMBER} ${env.BUILD_TIMESTAMP}",
-          body: "More info at ${env.BUILD_URL}artifact/reports/reports/latest/joint-report.html"
+          body: \
+"Report at ${env.BUILD_URL}artifact/reports/reports/latest/joint-report.html\n\n\
+Git repository at https://github.com/indigo-iam/wlcg-jwt-compliance-tests"
         }
       }
     }
