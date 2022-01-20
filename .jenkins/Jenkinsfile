@@ -59,10 +59,15 @@ pipeline {
       }
       steps {
         script {
+          TEST_RESULT = sh(
+            returnStdout: true,
+            script: 'ci/get-ts-summary-results.sh'
+          )
           emailext to: "${env.MAIL_RECIPIENTS}",
           subject: "WLCG JWT compliance test report - #${env.BUILD_NUMBER} ${env.BUILD_TIMESTAMP}",
           body: \
-"Report at ${env.BUILD_URL}artifact/reports/reports/latest/joint-report.html\n\n\
+"${TEST_RESULT}\n\n\
+Report at ${env.BUILD_URL}artifact/reports/reports/latest/joint-report.html\n\n\
 Git repository at https://github.com/indigo-iam/wlcg-jwt-compliance-tests"
         }
       }
