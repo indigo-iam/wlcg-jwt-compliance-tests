@@ -73,6 +73,7 @@ Git repository at https://github.com/indigo-iam/wlcg-jwt-compliance-tests"
     cleanup {
       sh '''#!/bin/bash
       docker-compose down -v
+      rm -rf $HOME/.config/oidc-agent
       '''
     }
 
