@@ -23,9 +23,20 @@ be configured as follows:
   - all clients presenting a valid VOMS proxy with the `/wlcg/Role=test` role
   - all clients presenting a valid JWT token with the `/wlcg/test` group
 
-## Running the testsuite with docker
+## Running the testsuite
 
-This is the recommended way of running the testsuite. It requires you have a local oidc-agent configuration for a client named `wlcg` and registered on the WLCG IAM instance.
+### Requirements
+
+Basic requirements for running the testsuite are:
+
+* have a local oidc-agent configuration for a client named `wlcg` and registered on the WLCG IAM instance (more details [here][iam-doc-oidc]);
+* be member of the more priviledged `/wlcg/test` group in the WLCG IAM; membership requests to optional groups can only be issued by VO admins.
+
+[iam-doc-oidc]: https://indigo-iam.github.io/v/v1.7.2/docs/tasks/user/getting-a-token/#registering-a-client
+
+### Run with docker
+
+This is the recommended way of running the testsuite.
 
 To setup an environment for running the testsuite in docker,
 run the following commands:
@@ -65,7 +76,7 @@ Additional arguments to `run-testsuite.sh` are forwarded to `robot`, e.g.
 
 To add an endpoint, edit the `./test/variables.yaml` file.
 
-## Running the testsuite without docker
+### Run without docker
 
 Find out all the things you need on your machine by looking at the [docker
 image][docker-image] used to run the testsuite.
