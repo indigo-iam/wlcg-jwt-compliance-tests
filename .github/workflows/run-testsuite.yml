@@ -27,7 +27,6 @@ jobs:
       - name: Run testsuite
         env:
           OIDC_AGENT_SECRET: ${{ secrets.OIDC_AGENT_SECRET }}
-          SKIP_REPORT_UPLOAD: yes
             # RUN_DEBUG: yes
         run: |
           mkdir -p reports && chmod 777 reports
