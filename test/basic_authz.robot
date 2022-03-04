@@ -10,19 +10,33 @@ Force Tags   basic-authz-checks
 
 *** Test cases ***
 
-Read access granted to WLCG members
+Read access denied to minimum priviledged token
     ${token}   Get token   scope=-s openid
     ${uuid}   Generate UUID
     ${url}   SE URL   robot-test-${uuid}
     ${rc}   ${out}   Curl Error   ${url}
-    Should Contain   ${out}   404
+    Should Contain   ${out}   403
 
-Write access denied to WLCG members
+Write access denied to minimum priviledged token
     ${token}   Get token   scope=-s openid
     ${uuid}   Generate UUID
     ${url}   SE URL   robot-write-access-denied-${uuid}
     ${rc}   ${out}   Curl Put Error   /etc/services  ${url}
     Should Contain   ${out}   403
+
+Read access granted to wlcg.groups
+    ${token}   Get token   scope=-s wlcg.groups
+    ${uuid}   Generate UUID
+    ${url}   SE URL   robot-test-${uuid}
+    ${rc}   ${out}   Curl Error   ${url}
+    Should Contain   ${out}   404
+
+Write access granted to wlcg.groups
+    ${token}   Get token   scope=-s wlcg.groups
+    ${uuid}   Generate UUID
+    ${url}   SE URL   robot-write-access-denied-${uuid}
+    ${rc}   ${out}   Curl Put Error   /etc/services  ${url}
+    Should Contain   ${out}   404
 
 Write access granted to storage.modify:/ scope
     ${token}   Get token
