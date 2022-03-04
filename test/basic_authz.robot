@@ -47,6 +47,13 @@ Create dir granted to storage.modify:/ scope
     ${rc}   ${out}   Curl MKCOL Success   ${url}
     Should Match Regexp   ${out}   20[0|1].*
 
+Read access granted with storage.read:/
+    ${token}   Get token   scope=-s storage.read:/
+    ${uuid}   Generate UUID
+    ${url}   SE URL   robot-test-${uuid}
+    ${rc}   ${out}   Curl Error   ${url}
+    Should Contain   ${out}   404
+
 Write access denied with storage.read:/
     ${token}   Get token   scope=-s storage.read:/
     ${uuid}   Generate UUID
