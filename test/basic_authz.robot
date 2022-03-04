@@ -35,8 +35,8 @@ Write access granted to wlcg.groups
     ${token}   Get token   scope=-s wlcg.groups:/wlcg
     ${uuid}   Generate UUID
     ${url}   SE URL   robot-write-access-denied-${uuid}
-    ${rc}   ${out}   Curl Put Error   /etc/services  ${url}
-    Should Contain   ${out}   404
+    ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
+    Should Match Regexp   ${out}   20[01]
 
 Write access granted to storage.modify:/ scope
     ${token}   Get token
