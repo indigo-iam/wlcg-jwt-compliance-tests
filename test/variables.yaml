@@ -56,3 +56,9 @@ endpoints:
     endpoint: https://ceph-gw8.gridpp.rl.ac.uk:1094
     paths:
       wlcg: /dteam:wlcg
+  se-ubonn-xrootd:
+    desc: UBonn XRootD
+    type: XRootD
+    endpoint: https://xrootd.physik.uni-bonn.de:1094
+    paths:
+      wlcg: /cephfs/grid/wlcg
