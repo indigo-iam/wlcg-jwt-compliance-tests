@@ -23,7 +23,7 @@ Token with random audience is rejected (strict)
 Token with correct audience is accepted
     [Tags]   audience
     ${se_config}   Get SE config
-    ${token}   Get token   scope=-s openid   opts=--aud=${se_config.endpoint}
+    ${token}   Get token   scope=-s openid -s storage.read:/   opts=--aud=${se_config.endpoint}
     ${uuid}   Generate UUID
     ${url}   SE URL   audience-test-${uuid}
     ${rc}   ${out}   Curl Error   ${url}
@@ -33,7 +33,7 @@ Token with correct audience in multiple option is accepted
     [Tags]   audience
     ${uuid}   Generate UUID
     ${se_config}   Get SE config
-    ${token}   Get token   scope=-s openid   opts=--aud="${se_config.endpoint} ${uuid}"
+    ${token}   Get token   scope=-s openid -s storage.read:/   opts=--aud="${se_config.endpoint} ${uuid}"
     ${url}   SE URL   audience-test-${uuid}
     ${rc}   ${out}   Curl Error   ${url}
     Should Contain   ${out}   404
@@ -53,14 +53,14 @@ Token with invalid multiple audiences is rejected (strict)
 
 Try get resource with token with random audience
     ${uuid}   Generate UUID
-    Get token   scope=-s openid   opts=--aud=${uuid}
+    Get token   scope=-s openid -s storage.read:/   opts=--aud=${uuid}
     ${url}   SE URL   audience-test-${uuid}
     ${rc}   ${out}   Curl Error   ${url}
     [Return]   ${out}
 
 Try get resource with token with invalid multiple audience
     ${uuid}   Generate UUID
-    Get token   scope=-s openid   opts=--aud="https://fake.audience:8443 ${uuid}"
+    Get token   scope=-s openid -s storage.read:/   opts=--aud="https://fake.audience:8443 ${uuid}"
     ${url}   SE URL   audience-test-${uuid}
     ${rc}   ${out}   Curl Error   ${url}
     [Return]   ${out}
