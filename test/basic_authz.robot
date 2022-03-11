@@ -10,42 +10,63 @@ Force Tags   basic-authz-checks
 
 *** Test cases ***
 
-Read access granted to WLCG members
+Read access denied to minimum priviledged token
     ${token}   Get token   scope=-s openid
     ${uuid}   Generate UUID
     ${url}   SE URL   robot-test-${uuid}
     ${rc}   ${out}   Curl Error   ${url}
-    Should Contain   ${out}   404
+    Should Contain   ${out}   403
 
-Write access denied to WLCG members
+Write access denied to minimum priviledged token
     ${token}   Get token   scope=-s openid
     ${uuid}   Generate UUID
     ${url}   SE URL   robot-write-access-denied-${uuid}
     ${rc}   ${out}   Curl Put Error   /etc/services  ${url}
     Should Contain   ${out}   403
 
+Read access granted to wlcg.groups
+    ${token}   Get token   scope=-s wlcg.groups:/wlcg
+    ${uuid}   Generate UUID
+    ${url}   SE URL   robot-test-${uuid}
+    ${rc}   ${out}   Curl Error   ${url}
+    Should Contain   ${out}   404
+
+Write access granted to wlcg.groups
+    ${token}   Get token   scope=-s wlcg.groups:/wlcg
+    ${uuid}   Generate UUID
+    ${url}   SE URL   robot-write-access-denied-${uuid}
+    ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
+    Should Match Regexp   ${out}   20[01]
+
 Write access granted to storage.modify:/ scope
     ${token}   Get token
     ${uuid}   Generate UUID
     ${url}   SE URL   robot-test-${uuid}
     ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
-    Should Match Regexp   ${out}   20[0|1].*
+    Should Match Regexp   ${out}   20[01]
 
 Delete access granted to storage.modify:/ scope
     ${token}   Get token
     ${uuid}   Generate UUID
     ${url}   SE URL   robot-test-${uuid}
     ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
-    Should Match Regexp   ${out}   20[0|1].*
+    Should Match Regexp   ${out}   20[01]
     ${rc}   ${out}   Curl Delete Success   ${url}
-    Should Contain   ${out}   204
+    Should Match Regexp   ${out}   20[04]
 
 Create dir granted to storage.modify:/ scope
     ${token}   Get token
     ${uuid}   Generate UUID
     ${url}   SE URL   create-dir-${uuid}
     ${rc}   ${out}   Curl MKCOL Success   ${url}
-    Should Match Regexp   ${out}   20[0|1].*
+    Should Match Regexp   ${out}   20[01]
+
+Read access granted with storage.read:/
+    ${token}   Get token   scope=-s storage.read:/
+    ${uuid}   Generate UUID
+    ${url}   SE URL   robot-test-${uuid}
+    ${rc}   ${out}   Curl Error   ${url}
+    Should Contain   ${out}   404
 
 Write access denied with storage.read:/
     ${token}   Get token   scope=-s storage.read:/
@@ -74,14 +95,14 @@ Path authorization enforced on storage.write
     Should Contain   ${out}   403
     ${url}   SE URL  not-found-${uuid}
      ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
-    Should Match Regexp   ${out}   20[0|1].*
+    Should Match Regexp   ${out}   20[01]
     
 storage.modify does not imply storage.read
     ${token}   Get token
     ${uuid}   Generate UUID
     ${url}   SE URL  found-${uuid}
     ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
-    Should Match Regexp   ${out}   20[0|1].*
+    Should Match Regexp   ${out}   20[01]
     ${token}   Get token   scope=-s storage.modify:/
     ${rc}   ${out}   Curl Error   ${url}
     Should Contain   ${out}   403
@@ -91,7 +112,7 @@ storage.create does not imply storage.read
     ${uuid}   Generate UUID
     ${url}   SE URL  found-${uuid}
     ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
-    Should Match Regexp   ${out}   20[0|1].*
+    Should Match Regexp   ${out}   20[01]
     ${token}   Get token   scope=-s storage.create:/
     ${rc}   ${out}   Curl Error   ${url}
     Should Contain   ${out}   403
@@ -110,7 +131,7 @@ storage.create does not allow deleting files
     ${uuid}   Generate UUID
     ${url}   SE URL  overwrite-${uuid}
     ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
-    Should Match Regexp   ${out}   20[0|1].*
+    Should Match Regexp   ${out}   20[01]
     ${token}   Get token   scope=-s storage.create:/
     ${rc}   ${out}   Curl Delete Error   ${url}
     Should Contain   ${out}   403
@@ -133,6 +154,6 @@ Wlcg/test group grants full access to /protected area
     ${rc}   ${out}   Curl Error   ${url}
     Should Contain   ${out}   404
     ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
-    Should Match Regexp   ${out}   20[0|1].*
+    Should Match Regexp   ${out}   20[01]
     ${rc}   ${out}   Curl Delete Success   ${url}
-    Should Contain   ${out}   204
+    Should Match Regexp   ${out}   20[40]
