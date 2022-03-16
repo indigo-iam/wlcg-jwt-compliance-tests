@@ -86,7 +86,7 @@ Path authorization enforced on storage.read
     ${rc}   ${out}   Curl Error   ${url}
     Should Contain   ${out}   404
 
-Path authorization enforced on storage.write
+Path authorization enforced on storage.modify
     ${token}   Get token   scope=-s storage.modify:/wlcg-jwt-compliance
     ${endpoint}   GET SE endpoint   ${se_alias}
     ${uuid}   Generate UUID
