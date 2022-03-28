@@ -27,6 +27,7 @@ jobs:
       - name: Run testsuite
         env:
           OIDC_AGENT_SECRET: ${{ secrets.OIDC_AGENT_SECRET }}
+          ROBOT_ARGS: --exclude strict
             # RUN_DEBUG: yes
         run: |
           mkdir -p reports && chmod 777 reports
