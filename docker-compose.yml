@@ -25,6 +25,7 @@ services:
       - REPORTS_DIR_BASE
       - ROBOT_ARGS
       - SKIP_REPORT_UPLOAD
+      - ENDPOINT
 
     volumes:
       - cabundle:/etc/pki
