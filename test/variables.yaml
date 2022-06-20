@@ -71,6 +71,6 @@ endpoints:
   se-prague-xrootd:
     desc: PRAGUELCG2 Test XRootD
     type: XRootD
-    endpoint: https://xrd.farm.particle.cz
+    endpoint: https://xrd.farm.particle.cz:1094
     paths:
       wlcg: /wlcg
