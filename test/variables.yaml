@@ -62,3 +62,15 @@ endpoints:
     endpoint: https://xrootd.physik.uni-bonn.de:1094
     paths:
       wlcg: /cephfs/grid/wlcg
+  se-prague-dcache:
+    desc: PRAGUELCG2 Test dCache
+    type: dCache
+    endpoint: https://dcache.farm.particle.cz
+    paths:
+      wlcg: /wlcg
+  se-prague-xrootd:
+    desc: PRAGUELCG2 Test XRootD
+    type: XRootD
+    endpoint: https://xrd.farm.particle.cz:1094
+    paths:
+      wlcg: /wlcg
