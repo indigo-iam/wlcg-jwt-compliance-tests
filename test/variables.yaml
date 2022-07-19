@@ -53,7 +53,7 @@ endpoints:
   se-ral-test-xrootd:
     desc: Test gateway for Echo
     type: XRootD
-    endpoint: https://ceph-gw8.gridpp.rl.ac.uk:1094
+    endpoint: https://ceph-dev-gw2.gridpp.rl.ac.uk:1094
     paths:
       wlcg: /dteam:wlcg
   se-ubonn-xrootd:
