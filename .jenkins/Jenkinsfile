@@ -4,7 +4,7 @@ pipeline {
 
   options {
     timeout(time: 1, unit: 'HOURS')
-    buildDiscarder(logRotator(numToKeepStr: '5'))
+    buildDiscarder(logRotator(daysToKeepStr: '15'))
     ansiColor('xterm')
     disableConcurrentBuilds()
     timestamps()
