@@ -47,7 +47,13 @@ endpoints:
   se-nebraska-xrootd:
     desc: Nebraska XRootD
     type: XRootD
-    endpoint: https://red-gridftp12.unl.edu:1094
+    endpoint: https://red-xfer12.unl.edu:1094
+    paths:
+      wlcg: /user/dteam
+  se-nebraska-xrootd-redir:
+    desc: Nebraska XRootD redirector
+    type: XRootD
+    endpoint: https://xrootd-local.unl.edu:1094
     paths:
       wlcg: /user/dteam
   se-ral-test-xrootd:
