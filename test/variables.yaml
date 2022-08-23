@@ -56,6 +56,18 @@ endpoints:
     endpoint: https://xrootd-local.unl.edu:1094
     paths:
       wlcg: /user/dteam
+  se-ucsd-xrootd:
+    desc:  UCSD XRootD test server
+    type: XRootD
+    endpoint: https://gftp-1.t2.ucsd.edu:1095
+    paths:
+      wlcg: /user/dteam
+  se-ucsd-xrootd-redir:
+    desc: UCSD XRootD redirector
+    type: XRootD
+    endpoint: https://redirector.t2.ucsd.edu:1095
+    paths:
+      wlcg: /user/dteam
   se-ral-test-xrootd:
     desc: Test gateway for Echo
     type: XRootD
