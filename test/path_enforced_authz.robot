@@ -41,3 +41,13 @@ storage.read:/foo does not allow to read the /foobar file
     ${token}   Get token   scope=-s storage.read:/foo
     ${rc}   ${out}   Curl Error   ${url}
     Should Contain   ${out}   403
+
+storage.create:/foo does not allow to create the /foobar folder
+    ${token}   Get token
+    ${uuid}   Generate UUID
+    ${url}   SE URL   ${uuid}
+    ${rc}   ${out}   Curl MKCOL Success   ${url}
+    Should Match Regexp   ${out}   20[01]
+    ${token}   Get token   scope=-s storage.create:/foo
+    ${rc}   ${out}   Curl MKCOL Error   ${url}/foobar
+    Should Contain   ${out}   403

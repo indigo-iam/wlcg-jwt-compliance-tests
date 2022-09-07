@@ -30,7 +30,7 @@ Basic requirements for running the testsuite are:
 - be member of the `/wlcg/test` optional group in the WLCG IAM.  
   In order to join IAM groups you have to login to IAM and click the "Add to group" button; membership requests will be granted by VO admins afterwards.
 
-[iam-doc-oidc]: https://indigo-iam.github.io/v/v1.7.2/docs/tasks/user/getting-a-token/#registering-a-client
+[iam-doc-oidc]: https://indigo-iam.github.io/v/current/docs/tasks/user/getting-a-token/#registering-a-client
 
 ### Run with docker
 
