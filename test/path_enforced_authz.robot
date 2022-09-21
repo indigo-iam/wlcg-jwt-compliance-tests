@@ -32,14 +32,14 @@ Path authorization enforced on storage.modify
      ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
     Should Match Regexp   ${out}   20[01]
 
-storage.read:/foobar allows to read the /foobar file
+storage.read:/foobar allows to read into the /foobar directory
     [Setup]   Create foobar directory and file
     ${token}   Get token   scope=-s storage.read:/wlcg-jwt-compliance/${SUITE_UUID}/foobar
     ${rc}   ${out}   Curl Auth Success   ${URL}
     Should Contain   ${out}   ${file.content}
     [Teardown]   Delete foobar directory and file
 
-storage.read:/foo does not allow to read the /foobar file
+storage.read:/foo does not allow to read into the /foobar directory
     [Setup]   Create foobar directory and file
     ${token}   Get token   scope=-s storage.read:/wlcg-jwt-compliance/${SUITE_UUID}/foo
     ${rc}   ${out}   Curl Error   ${URL}
