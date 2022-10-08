@@ -68,7 +68,7 @@ endpoints:
     endpoint: https://redirector.t2.ucsd.edu:1095
     paths:
       wlcg: /user/dteam
-  se-ucsd-florida:
+  se-florida-xrootd:
     desc:  Florida XRootD test server
     type: XRootD
     endpoint: https://cmsio5.rc.ufl.edu:1094
