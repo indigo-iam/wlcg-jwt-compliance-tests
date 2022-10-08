@@ -68,6 +68,12 @@ endpoints:
     endpoint: https://redirector.t2.ucsd.edu:1095
     paths:
       wlcg: /user/dteam
+  se-ucsd-florida:
+    desc:  Florida XRootD test server
+    type: XRootD
+    endpoint: https://cmsio5.rc.ufl.edu:1094
+    paths:
+      wlcg: /user/dteam
   se-ral-test-xrootd:
     desc: Test gateway for Echo
     type: XRootD
