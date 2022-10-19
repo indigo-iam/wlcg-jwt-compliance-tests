@@ -11,6 +11,7 @@ Force Tags   path-enforced-authz-checks
 *** Test cases ***
 
 Path authorization enforced on storage.read
+    [Tags]   critical
     ${token}   Get token   scope=-s storage.read:/wlcg-jwt-compliance
     ${endpoint}   GET SE endpoint   ${se_alias}
     ${uuid}   Generate UUID
@@ -22,6 +23,7 @@ Path authorization enforced on storage.read
     Should Contain   ${out}   404
 
 Path authorization enforced on storage.modify
+    [Tags]   critical
     ${token}   Get token   scope=-s storage.modify:/wlcg-jwt-compliance
     ${endpoint}   GET SE endpoint   ${se_alias}
     ${uuid}   Generate UUID
@@ -33,6 +35,7 @@ Path authorization enforced on storage.modify
     Should Match Regexp   ${out}   20[01]
 
 storage.read:/foobar allows to read into the /foobar directory
+    [Tags]   critical
     [Setup]   Create foobar directory and file
     ${token}   Get token   scope=-s storage.read:/wlcg-jwt-compliance/${SUITE_UUID}/foobar
     ${rc}   ${out}   Curl Auth Success   ${URL}
@@ -40,6 +43,7 @@ storage.read:/foobar allows to read into the /foobar directory
     [Teardown]   Delete foobar directory and file
 
 storage.read:/foo does not allow to read into the /foobar directory
+    [Tags]   not-critical
     [Setup]   Create foobar directory and file
     ${token}   Get token   scope=-s storage.read:/wlcg-jwt-compliance/${SUITE_UUID}/foo
     ${rc}   ${out}   Curl Error   ${URL}
@@ -47,6 +51,7 @@ storage.read:/foo does not allow to read into the /foobar directory
     [Teardown]   Delete foobar directory and file
 
 Create directory allowed with storage.create scope
+    [Tags]   critical
     ${token}   Get token
     ${uuid}   Generate UUID
     ${basename}   Set Variable   create-dir-${uuid}
@@ -58,6 +63,7 @@ Create directory allowed with storage.create scope
     Should Match Regexp   ${out}   20[01]
 
 Create directory not allowed with storage.create scope and partial path
+    [Tags]   not-critical
     ${token}   Get token
     ${uuid}   Generate UUID
     ${basename}   Set Variable   create-dir-${uuid}
@@ -70,6 +76,7 @@ Create directory not allowed with storage.create scope and partial path
     Should Contain   ${out}   403
 
 storage.read scope with path not compliant with RFC3986 is rejected
+    [Tags]   critical
     [Setup]   Create foobar directory and file
     ${token}   Get token   scope=-s storage.read:/foobar
     ${rc}   ${out}   Curl Error   ${URL}
@@ -80,7 +87,7 @@ storage.read scope with path not compliant with RFC3986 is rejected
     [Teardown]   Delete foobar directory and file
 
 Trailing slash allows to read into a directory
-    [Tags]   TBD
+    [Tags]   TBD   not-critical
     [Setup]   Create foobar directory and file
     ${token}   Get token   scope=-s storage.read:/wlcg-jwt-compliance/${SUITE_UUID}/foobar/
     ${rc}   ${out}   Curl Auth Success   ${URL}

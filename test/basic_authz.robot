@@ -6,7 +6,7 @@ Resource    common/oidc-agent.robot
 
 Variables   test/variables.yaml
 
-Force Tags   basic-authz-checks
+Force Tags   basic-authz-checks   critical
 
 *** Test cases ***
 
