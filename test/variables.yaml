@@ -80,6 +80,18 @@ endpoints:
     endpoint: https://cmsio7.rc.ufl.edu:1094
     paths:
       wlcg: /user/dteam
+  se-wisconsin-xrootd:
+    desc: Wisconsin XRootD
+    type: XRootD
+    endpoint: https://g31n01.hep.wisc.edu:1094
+    paths:
+      wlcg: /user/osg_dteam
+  se-wisconsin-xrootd-redir:
+    desc: Wisconsin XRootD redirector
+    type: XRootD
+    endpoint: https://cmsxrootd.hep.wisc.edu:1094
+    paths:
+      wlcg: /user/osg_dteam
   se-ral-test-xrootd:
     desc: Test gateway for Echo
     type: XRootD
