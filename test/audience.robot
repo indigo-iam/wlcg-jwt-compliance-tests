@@ -7,6 +7,8 @@ Resource    common/http.robot
 
 Variables   test/variables.yaml
 
+Force Tags   critical
+
 
 *** Test cases ***
 

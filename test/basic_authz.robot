@@ -6,7 +6,7 @@ Resource    common/oidc-agent.robot
 
 Variables   test/variables.yaml
 
-Force Tags   basic-authz-checks
+Force Tags   basic-authz-checks   critical
 
 *** Test cases ***
 
@@ -74,28 +74,6 @@ Write access denied with storage.read:/
     ${url}   SE URL   robot-test-${uuid}
     ${rc}   ${out}   Curl Put Error   /etc/services  ${url}
     Should Contain   ${out}   403
-
-Path authorization enforced on storage.read
-    ${token}   Get token   scope=-s storage.read:/wlcg-jwt-compliance
-    ${endpoint}   GET SE endpoint   ${se_alias}
-    ${uuid}   Generate UUID
-    ${url}   Set Variable   ${endpoint}/not-found-${uuid}
-    ${rc}   ${out}   Curl Error   ${url}
-    Should Contain   ${out}   403
-    ${url}   SE URL  not-found-${uuid}
-    ${rc}   ${out}   Curl Error   ${url}
-    Should Contain   ${out}   404
-
-Path authorization enforced on storage.modify
-    ${token}   Get token   scope=-s storage.modify:/wlcg-jwt-compliance
-    ${endpoint}   GET SE endpoint   ${se_alias}
-    ${uuid}   Generate UUID
-    ${url}   Set Variable   ${endpoint}/not-found-${uuid}
-    ${rc}   ${out}   Curl Put Error   /etc/services  ${url}
-    Should Contain   ${out}   403
-    ${url}   SE URL  not-found-${uuid}
-     ${rc}   ${out}   Curl Put Success   /etc/services  ${url}
-    Should Match Regexp   ${out}   20[01]
     
 storage.modify does not imply storage.read
     ${token}   Get token

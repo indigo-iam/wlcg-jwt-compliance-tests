@@ -18,6 +18,10 @@ Curl Success  [Arguments]  ${url}  ${opts}=${curl.opts.default}
     ${rc}  ${out}   Execute and Check Success  curl ${url} ${opts}
     [Return]  ${rc}  ${out}
 
+Curl Auth Success  [Arguments]  ${url}  ${opts}=${curl.opts.default}
+    ${rc}  ${out}   Execute and Check Success  curl ${opts} -H "Authorization: Bearer %{${bearer.env}}" ${url}
+    [Return]  ${rc}  ${out}
+
 Curl Error   [Arguments]  ${url}  ${opts}=${curl.opts.default}
     ${rc}  ${out}   Execute and Check Failure  curl ${opts} -H "Authorization: Bearer %{${bearer.env}}" ${url}
     [Return]  ${rc}  ${out}
@@ -76,4 +80,10 @@ Curl MKCOL Success
     [Arguments]   ${url}   ${opts}=${curl.opts.default}
     ${all_opts}   Set variable   -X MKCOL ${opts} -H "Authorization: Bearer %{${bearer.env}}"
     ${rc}  ${out}  Curl Success  ${url}  ${all_opts}
+    [Return]  ${rc}  ${out}
+
+Curl MKCOL Error   
+    [Arguments]   ${url}   ${opts}=${curl.opts.default}
+    ${all_opts}   Set variable   -X MKCOL ${opts} -H "Authorization: Bearer %{${bearer.env}}"
+    ${rc}  ${out}  Curl Error  ${url}  ${all_opts}
     [Return]  ${rc}  ${out}

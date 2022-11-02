@@ -34,7 +34,7 @@ rebot --nostatusrc \
   --log ${reports_dir}/joint-log.html \
   --ReportTitle "JWT compliance tests ${now}" \
   --name "JWT compliance tests" \
-  --tagstatinclude 'se-*' \
+  --tagstatinclude 'se-*' --tagstatinclude '*critical' \
   ${reports}
 
 if [ -n "${SKIP_REPORT_UPLOAD}" ]; then
