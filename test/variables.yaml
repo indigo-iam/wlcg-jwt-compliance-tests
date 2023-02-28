@@ -116,3 +116,9 @@ endpoints:
     endpoint: https://xrd.farm.particle.cz:1094
     paths:
       wlcg: /wlcg
+  se-bnl-preproduction-dcache:
+    desc: BNL preproduction dCache
+    type: dCache
+    endpoint: https://dcqosdoor.usatlas.bnl.gov
+    paths:
+      wlcg: /pnfs/usatlas.bnl.gov/wlcg
