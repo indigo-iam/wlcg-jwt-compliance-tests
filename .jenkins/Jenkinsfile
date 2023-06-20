@@ -3,7 +3,7 @@ pipeline {
   agent { label 'docker' }
 
   options {
-    timeout(time: 1, unit: 'HOURS')
+    timeout(time: 8, unit: 'HOURS')
     buildDiscarder(logRotator(daysToKeepStr: '15'))
     ansiColor('xterm')
     disableConcurrentBuilds()
