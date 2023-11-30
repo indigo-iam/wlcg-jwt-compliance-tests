@@ -45,7 +45,7 @@ pipeline {
 
     stage('report'){
       steps {
-        sh "docker cp wlcg-jwt-tests_ts_1:/tmp/reports ."
+        sh "docker cp wlcg-jwt-tests-ts-1:/tmp/reports ."
         archive 'reports/**'
       }
     }
