@@ -35,9 +35,9 @@ pipeline {
           mkdir -p /tmp/reports  && rm -rf /tmp/reports/*
           mkdir -p ${HOME}/.config/oidc-agent
           cp assets/.config/oidc-agent/* $HOME/.config/oidc-agent/
-          docker-compose up trust
-          docker-compose up -d ts
-          docker-compose exec -T ts bash -c 'cd test-suite && sh ci/run.sh'
+          docker compose up trust
+          docker compose up -d ts
+          docker compose exec -T ts bash -c 'cd test-suite && sh ci/run.sh'
           '''
         }
       }
@@ -74,21 +74,10 @@ pipeline {
   post {
     cleanup {
       sh '''#!/bin/bash
-      docker-compose down -v
+      docker compose down -v
       rm -rf $HOME/.config/oidc-agent
       '''
     }
 
-    failure {
-      slackSend color: 'danger', message: "${env.JOB_NAME} - #${env.BUILD_NUMBER} Failure (<${env.BUILD_URL}|Open>)"
-    }
-
-    changed {
-      script{
-        if('SUCCESS'.equals(currentBuild.currentResult)) {
-          slackSend color: 'good', message: "${env.JOB_NAME} - #${env.BUILD_NUMBER} Back to normal (<${env.BUILD_URL}|Open>)"
-        }
-      }
-    }
   }
 }
