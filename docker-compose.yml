@@ -8,7 +8,8 @@ volumes:
 services:
 
   trust:
-    image: indigoiam/egi-trustanchors
+    image: indigoiam/egi-trustanchors:main
+    pull_policy: always
     environment:
       - FORCE_TRUST_ANCHORS_UPDATE=1
     volumes:
