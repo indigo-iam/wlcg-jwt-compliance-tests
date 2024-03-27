@@ -92,6 +92,12 @@ endpoints:
     endpoint: https://cmsxrootd.hep.wisc.edu:1094
     paths:
       wlcg: /user/osg_dteam
+  se-ral-test-xrootd:
+    desc: Test gateway for Echo
+    type: XRootD
+    endpoint: https://ceph-dev-gw4.gridpp.rl.ac.uk:1094
+    paths:
+      wlcg: /dteam:wlcg
   se-ubonn-xrootd:
     desc: UBonn XRootD
     type: XRootD
