@@ -23,7 +23,7 @@ endpoints:
   se-infn-t1-xfer-storm:
     desc: INFN T1 atlas production SE
     type: StoRM
-    endpoint: https://xfer.cr.cnaf.infn.it:8443
+    endpoint: https://xfer-atlas.cr.cnaf.infn.it:8443
     paths:
       wlcg: /wlcg
   se-prometheus-dcache:
