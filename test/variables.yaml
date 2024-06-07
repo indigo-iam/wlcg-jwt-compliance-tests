@@ -32,34 +32,10 @@ endpoints:
     endpoint: https://prometheus.desy.de:2443
     paths:
       wlcg: /VOs/wlcg
-  se-fnal-dcache:
-    desc: FNAL stkendca06a
-    type: dCache
-    endpoint: https://stkendca06a.fnal.gov:2880
-    paths:
-      wlcg: /VOs/wlcg
-  se-cern-eos:
-    desc: CERN EOS
-    type: EOS
-    endpoint: https://eospps.cern.ch
-    paths:
-      wlcg: /eos/opstest/tpc/https
-  se-nebraska-xrootd:
-    desc: Nebraska XRootD
-    type: XRootD
-    endpoint: https://red-xfer12.unl.edu:1094
-    paths:
-      wlcg: /user/dteam
   se-nebraska-xrootd-redir:
     desc: Nebraska XRootD redirector
     type: XRootD
     endpoint: https://xrootd-local.unl.edu:1094
-    paths:
-      wlcg: /user/dteam
-  se-ucsd-xrootd:
-    desc:  UCSD XRootD test server
-    type: XRootD
-    endpoint: https://gftp-1.t2.ucsd.edu:1095
     paths:
       wlcg: /user/dteam
   se-ucsd-xrootd-redir:
@@ -80,12 +56,6 @@ endpoints:
     endpoint: https://cmsio7.rc.ufl.edu:1094
     paths:
       wlcg: /user/dteam
-  se-wisconsin-xrootd:
-    desc: Wisconsin XRootD
-    type: XRootD
-    endpoint: https://g31n01.hep.wisc.edu:1094
-    paths:
-      wlcg: /user/osg_dteam
   se-wisconsin-xrootd-redir:
     desc: Wisconsin XRootD redirector
     type: XRootD
