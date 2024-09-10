@@ -22,7 +22,7 @@ pipeline {
     REPORTS_DIR_BASE = '/tmp/reports'
     ROBOT_ARGS = "${params.ROBOT_ARGS}"
     SKIP_REPORT_UPLOAD = 'y'
-    MAIL_RECIPIENTS = 'wlcg-doma-tpc@cern.ch'
+    MAIL_RECIPIENTS = 'sd-infrastructure-support@lists.cnaf.infn.it'
   }
 
   stages {
