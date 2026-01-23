@@ -37,4 +37,4 @@ services:
     entrypoint: /tini -- sleep infinity
 
     extra_hosts:
-      - "storm.example: 192.168.65.2"
+      - "storm.example:192.168.65.2"
